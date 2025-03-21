@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: doula-manager
+  datasource:
+    url: jdbc:sqlite:doulamanager.db
+    driver-class-name: org.sqlite.JDBC
+  jpa:
+    hibernate:
+      ddl-auto: none
+      dialect: org.hibernate.community.dialect.SQLiteDialect
+    show-sql: true
+  flyway:
+    enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  tracing:
+    sampling:
+      probability: 1.0
+    baggage:
+      correlation:
+        enabled: true
