@@ -159,7 +159,7 @@ As collections no formato postman da aplicação são mantidas em:
 
 ```mermaid
  flowchart BT
- 
+    
     subgraph Domain
         UseCases
         Models
@@ -189,7 +189,9 @@ As collections no formato postman da aplicação são mantidas em:
             Gateways
         end
     end
-
+    
+    Exterior <--> API
+    A[Banco de Dados] <--> Core
     Core --> |Gateways/CoreAdapters| Domain
     API --> |UseCases/ApiAdapters| Domain
 
