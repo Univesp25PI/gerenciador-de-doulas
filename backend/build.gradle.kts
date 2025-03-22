@@ -5,11 +5,10 @@ buildscript {
 }
 
 plugins {
-    kotlin("jvm") version "2.0.21"
-    kotlin("plugin.spring") version "2.0.21"
-    id("org.springframework.boot") version "3.3.7"
-    id("io.spring.dependency-management") version "1.1.7"
-    application
+    kotlin("jvm") version "1.9.22"
+    kotlin("plugin.spring") version "1.9.22"
+    id("org.springframework.boot") version "3.2.3"
+    id("io.spring.dependency-management")  version "1.1.4"
 }
 
 group = "br.com.doula.manager"
@@ -57,6 +56,22 @@ subprojects {
 }
 
 dependencies {
+    implementation(project(":manager-core"))
+
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.mockito:mockito-core:${property("mockitoCoreVersion")}")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:${property("mockitoKotlinVersion")}")
+    testImplementation("io.mockk:mockk:${property("mockkVersion")}")
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
     testImplementation(kotlin("test"))
 }
 

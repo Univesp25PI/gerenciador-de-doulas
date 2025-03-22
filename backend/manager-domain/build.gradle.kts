@@ -1,6 +1,7 @@
 plugins {
-    id("org.springframework.boot")
-    kotlin("jvm")
+    id("org.springframework.boot") version "3.2.3"
+    kotlin("jvm") version "1.9.22"
+    `java-library`
 }
 
 group = "br.com.doula.manager"
@@ -14,4 +15,8 @@ dependencies {
     testImplementation("io.mockk:mockk:1.13.9")
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+tasks.withType<org.springframework.boot.gradle.tasks.bundling.BootJar> {
+    enabled = false
 }

@@ -1,8 +1,8 @@
 plugins {
-    kotlin("jvm") version "2.0.21"
-    kotlin("plugin.spring")
-    id("org.springframework.boot")
-    id("io.spring.dependency-management")
+    kotlin("jvm") version "1.9.22"
+    kotlin("plugin.spring") version "1.9.22"
+    id("org.springframework.boot") version "3.2.3"
+    id("io.spring.dependency-management") version "1.1.4"
     `java-library`
 }
 
@@ -37,4 +37,8 @@ dependencies {
     testImplementation("io.mockk:mockk:${property("mockkVersion")}")
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+tasks.withType<org.springframework.boot.gradle.tasks.bundling.BootJar> {
+    enabled = false
 }
