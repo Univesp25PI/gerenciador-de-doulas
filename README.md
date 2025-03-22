@@ -90,5 +90,111 @@ CREATE TABLE Aulas (
     - **Regra:** Se uma gestante for removida, todas as aulas associadas também serão apagadas (ON DELETE CASCADE).
 
 
-# API e Backend
-# Front
+# Backend
+
+## 🚀 Execução Local
+
+### 🐳 Via Docker
+
+1. Instale o Docker.
+2. Na raiz do projeto, execute:
+   ```
+   docker-compose up --build
+3. Verifique se a aplicação está rodando:
+    ```
+    curl --location 'http://localhost:8080/actuator/health'
+### 🖥️ Via InteliJ
+1. Instale o IntelliJ.
+2. Abra o projeto.
+3. Após o carregamento, execute o método main:
+    ```
+    backend/src/main/kotlin/br/com/doula/manager/ManagerApplication.kt
+4. Verifique se a aplicação está rodando:
+    ```
+    curl --location 'http://localhost:8080/actuator/health'
+### ☕ Via Java
+1. Instale o Java 21.
+2. No terminal, execute na raiz do backend:
+    ```
+    ./gradlew build --info --stacktrace
+3. Rode a aplicação:
+    ```
+    java -jar build/libs/manager.jar
+4. Verifique se a aplicação está rodando:
+    ```
+    curl --location 'http://localhost:8080/actuator/health'
+
+## 🏛️ Clean Architecture
+Optamos pelo uso da **Clean Architecture** para garantir um código mais organizado, legível e de alta manutenibilidade. Garantindo uma maior **separação de responsabilidades**, tornando a aplicação menos acoplada e mais flexível.
+### 🔹 Benefícios
+* Baixo acoplamento: As camadas podem ser alteradas sem impactar diretamente outras partes do código.
+* Alta coesão: Cada módulo tem uma responsabilidade bem definida.
+* Facilidade de teste: O código pode ser testado isoladamente, melhorando a confiabilidade da aplicação.
+* Independência de frameworks e bancos de dados: O núcleo da aplicação não depende diretamente de tecnologias externas.
+### Estrutura no Projeto:
+### 📌 API
+📍 Localização: **Projeto raiz**
+* Contém a lógica de entrada e saída.
+* Responsável pelos **controllers, responses e requests**.
+* Depende do **manager-core**.
+
+### 📌 CORE
+📍 Localização: **Módulo manager-core**
+* Gerencia comunicações externas, principalmente com o banco de dados.
+* Contém **repositories, entities e implementações de gateways**.
+* Depende do **manager-domain**.
+
+### 📌 DOMAIN
+📍 Localização: Módulo manager-domain
+* Responsável pelas **regras de negócio e validações.**
+* Contém **casos de uso e models.**
+* **Não possui dependências** com outros módulos.
+* Models devem ser usados para comunicação entre camadas via **adapters.**
+
+## 📂 Collections
+As collections no formato postman da aplicação são mantidas em:
+
+    backend/collections/postman
+ ## Diagrama da Arquitetura do projeto
+
+```mermaid
+ flowchart BT
+ 
+    subgraph Domain
+        UseCases
+        Models
+        Interfaces
+    end
+
+    subgraph API
+        subgraph _line1 [ ]
+            style _line1 fill:none,stroke:none
+            Controllers
+        end 
+        subgraph _line2 [ ]
+            style _line2 fill:none,stroke:none
+            Requests
+            Responses
+        end
+    end
+
+    subgraph Core
+        subgraph _line3 [ ]
+            style _line3 fill:none,stroke:none
+            Repositories
+            Entities
+        end
+        subgraph _line4 [ ]
+            style _line4 fill:none,stroke:none
+            Gateways
+        end
+    end
+
+    Core --> |Gateways/CoreAdapters| Domain
+    API --> |UseCases/ApiAdapters| Domain
+
+    style Domain fill:#f9f,stroke:#333,stroke-width:4px
+    style API fill:#bbf,stroke:#333
+    style Core fill:#fbb,stroke:#333
+```
+# Frontend

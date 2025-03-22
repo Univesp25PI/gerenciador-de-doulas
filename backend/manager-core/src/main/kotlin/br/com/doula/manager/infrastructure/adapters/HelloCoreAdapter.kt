@@ -31,4 +31,6 @@ object HelloCoreAdapter {
             createDate = entity.createDate.toString(),
             updateDate = entity.updateDate.toString()
         )
+
+
 }
