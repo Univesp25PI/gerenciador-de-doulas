@@ -54,6 +54,8 @@ CREATE TABLE Gestantes (
     nome TEXT NOT NULL,
     idade INTEGER NOT NULL,
     primeira_gestacao BOOLEAN NOT NULL,
+    inicio_gestacao DATE NOT NULL,  
+    semana_gestacao INTEGER,
     comorbidades TEXT,
     FOREIGN KEY (id_doula) REFERENCES Doulas(id_doula) ON DELETE CASCADE
 );
