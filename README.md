@@ -42,6 +42,8 @@ A tabela `Gestantes` armazena os dados das gestantes acompanhadas pelas doulas.
 - **`nome` (TEXT):** Nome completo da gestante.
 - **`idade` (INTEGER):** Idade da gestante.
 - **`primeira_gestacao` (BOOLEAN):** Indica se a gestante está em sua primeira gestação (valor verdadeiro ou falso).
+- **`inicio_gestacao` (DATE):** Data aproximada do início do período gestacional.
+- **`semana_gestacao` (INTEGER):** Semana de gestação (calculada a partir do início da gestação).
 - **`comorbidades` (TEXT):** Descrição de possíveis comorbidades da gestante.
 
 #### **Query de Criação:**
