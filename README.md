@@ -15,7 +15,6 @@ Estrutura inicial do banco de dados para o sistema de cadastro de **Doulas**, **
 ## **📊 Diagrama ER (`Mermaid`)**  
 
 ```mermaid
-pregnancy_start_date  e o gestational_week 
 ---
 config:
   theme: neutral
