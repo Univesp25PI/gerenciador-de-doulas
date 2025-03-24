@@ -1,13 +1,12 @@
 spring:
+  profiles:
+    active: local
   application:
     name: doula-manager
-  datasource:
-    url: jdbc:sqlite:doulamanager.db
-    driver-class-name: org.sqlite.JDBC
   jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: none
-      dialect: org.hibernate.community.dialect.SQLiteDialect
+      ddl-auto: update
     show-sql: true
   flyway:
     enabled: true

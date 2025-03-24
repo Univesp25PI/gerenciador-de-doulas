@@ -1,4 +1,17 @@
 services:
+  postgres:
+    image: postgres:16
+    container_name: postgres-doula
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: doula_manager
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
   backend:
     build:
       context: ./backend
@@ -6,11 +19,17 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=prod
-    volumes:
-      # Mapeia o arquivo doulamanager.db do host para o container
-      - ./backend/doulamanager.db:/app/doulamanager.db
-    depends_on: []
+      - SPRING_PROFILES_ACTIVE=docker
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=doula_manager
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
 
   # Futuro serviço do frontend (comentado por enquanto)
   # frontend:
