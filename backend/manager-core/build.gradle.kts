@@ -18,9 +18,8 @@ dependencies {
     // Banco de dados SQL
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
-    // SQLite JDBC Driver
-    implementation("org.xerial:sqlite-jdbc:3.41.2.2")
-    implementation("org.hibernate.orm:hibernate-community-dialects:6.2.7.Final")
+    // PostgreSQL JDBC Driver (substitui o SQLite)
+    implementation("org.postgresql:postgresql:42.7.1")
 
     // Flyway para migrações de banco de dados
     implementation("org.flywaydb:flyway-core")
