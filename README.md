@@ -69,13 +69,14 @@ A tabela `Doula` armazena informações sobre as profissionais cadastradas no si
 
 #### **Query de Criação:**  
 ```sql
-CREATE TABLE Doula (
+-- Criação da tabela Doula
+CREATE TABLE IF NOT EXISTS Doula (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     phone TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
     create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
@@ -97,7 +98,8 @@ A tabela `Pregnant` (Gestante) armazena os dados das gestantes acompanhadas pela
 
 #### **Query de Criação:**  
 ```sql
-CREATE TABLE Pregnant (
+-- Criação da tabela Pregnant
+CREATE TABLE IF NOT EXISTS Pregnant (
     id SERIAL PRIMARY KEY,
     doula_id INTEGER NOT NULL,
     name TEXT NOT NULL,
@@ -106,7 +108,7 @@ CREATE TABLE Pregnant (
     lmp_date DATE NOT NULL,
     comorbidities TEXT,
     create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (doula_id) REFERENCES Doula(id) ON DELETE CASCADE
 );
 ```
@@ -126,14 +128,15 @@ A tabela `Class` (Aula) armazena os registros de aulas ministradas para cada ges
 
 #### **Query de Criação:**  
 ```sql
-CREATE TABLE Class (
+-- Criação da tabela Class
+CREATE TABLE IF NOT EXISTS Class (
     id SERIAL PRIMARY KEY,
     pregnant_id INTEGER NOT NULL,
     class_number INTEGER NOT NULL,
     class_type TEXT NOT NULL,
     class_date TIMESTAMP NOT NULL,
     create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (pregnant_id) REFERENCES Pregnant(id) ON DELETE CASCADE
 );
 ```
