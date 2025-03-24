@@ -2,96 +2,158 @@
 Sistema de controle e acompanhamento de doulandas.
 
 
-# Estrutura do Banco de Dados - Sistema de Cadastro de Doulas e Gestantes V1
 
-![Diagram](./imgs/pi1-2025-diagrama-banco-v1.png)
+# **📌 Estrutura do Banco de Dados - Sistema de Cadastro de Doulas, Gestantes e Aulas**  
 
-Estrutura inicial do banco de dados para o sistema de cadastro de **Doulas**, **Gestantes** e **Aulas**. Componentes centrais:
-- A descrição de cada tabela;
-- Os campos e os tipos de dados utilizados;
-- Os relacionamentos entre as tabelas;
-- As queries SQL para criação das tabelas no **PostgreSQL**, **SQLserver** (bancos relacionais de forma geral).
+Estrutura inicial do banco de dados para o sistema de cadastro de **Doulas**, **Gestantes** e **Aulas**. Componentes centrais:  
+- A descrição de cada tabela;  
+- Os campos e os tipos de dados utilizados;  
+- Os relacionamentos entre as tabelas;  
+- As queries SQL para criação das tabelas no **PostgreSQL**.
 
-## Estrutura das Tabelas
 
-### 1️.Tabela `Doulas`
+## **📊 Diagrama ER (`Mermaid`)**  
 
-A tabela `Doulas` armazena informações sobre as profissionais cadastradas no sistema.
-#### **Campos e Tipos de Dados:**
-- **`id_doula` (SERIAL):** Identificador único da doula. É a chave primária da tabela.
-- **`nome` (TEXT):** Nome completo da doula.
-- **`telefone` (TEXT):** Número de telefone da doula.
-- **`email` (TEXT UNIQUE):** Endereço de e-mail único da doula, que não pode se repetir.
+```mermaid
+---
+config:
+  theme: neutral
+---
+erDiagram
+    DOULA {
+        int id PK
+        string name
+        string phone
+        string email
+        datetime create_date
+        datetime update_date
+    }
+    PREGNANT {
+        int id PK
+        int doula_id FK
+        string name
+        int age
+        bool first_pregnancy
+        date pregnancy_start_date
+        date lmp_date
+        int gestational_week
+        string comorbidities
+        datetime create_date
+        datetime update_date
+    }
+    CLASS {
+        int id PK
+        int pregnant_id FK
+        int class_number
+        string class_type
+        datetime class_date
+        datetime create_date
+        datetime update_date
+    }
+    DOULA ||--o{ PREGNANT : "assigned to"
+    PREGNANT ||--o{ CLASS : "connected with"
+```
 
-#### **Query de Criação:**
+
+## **📚 Estrutura das Tabelas**  
+
+### **1️⃣ Tabela `Doula`**  
+
+A tabela `Doula` armazena informações sobre as profissionais cadastradas no sistema.  
+
+#### **Campos e Tipos de Dados:**  
+- **`id` (SERIAL, PK):** Identificador único da doula.  
+- **`name` (TEXT, NOT NULL):** Nome completo da doula.  
+- **`phone` (TEXT, NOT NULL):** Número de telefone da doula.  
+- **`email` (TEXT, UNIQUE, NOT NULL):** Endereço de e-mail único.  
+- **`create_date` (TIMESTAMP, DEFAULT CURRENT_TIMESTAMP):** Data de criação do registro.  
+- **`update_date` (TIMESTAMP, DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP):** Data de última atualização do registro.  
+
+#### **Query de Criação:**  
 ```sql
-CREATE TABLE Doulas (
-    id_doula SERIAL PRIMARY KEY,
-    nome TEXT NOT NULL,
-    telefone TEXT NOT NULL,
-    email TEXT UNIQUE NOT NULL
+CREATE TABLE Doula (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    phone TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 ```
 
-### 2.Tabela `Gestantes`
 
-A tabela `Gestantes` armazena os dados das gestantes acompanhadas pelas doulas.
-#### **Campos e Tipos de Dados:**
-- **`id_gestante` (SERIAL):** Identificador único da gestante. É a chave primária da tabela.
-- **`id_doula` (INTEGER):** Identificador da doula responsável. É uma chave estrangeira que referencia o campo `id_doula` da tabela `Doulas`.
-- **`nome` (TEXT):** Nome completo da gestante.
-- **`idade` (INTEGER):** Idade da gestante.
-- **`primeira_gestacao` (BOOLEAN):** Indica se a gestante está em sua primeira gestação (valor verdadeiro ou falso).
-- **`inicio_gestacao` (DATE):** Data aproximada do início do período gestacional.
-- **`semana_gestacao` (INTEGER):** Semana de gestação (calculada a partir do início da gestação).
-- **`comorbidades` (TEXT):** Descrição de possíveis comorbidades da gestante.
+### **2️⃣ Tabela `Pregnant`**  
 
-#### **Query de Criação:**
+A tabela `Pregnant` (Gestante) armazena os dados das gestantes acompanhadas pelas doulas.  
+
+#### **Campos e Tipos de Dados:**  
+- **`id` (SERIAL, PK):** Identificador único da gestante.  
+- **`doula_id` (INTEGER, FK, NOT NULL):** Referência para a doula responsável.  
+- **`name` (TEXT, NOT NULL):** Nome completo da gestante.  
+- **`age` (INTEGER, NOT NULL):** Idade da gestante.  
+- **`first_pregnancy` (BOOLEAN, NOT NULL):** Indica se é a primeira gestação.  
+- **`pregnancy_start_date` (DATE, NOT NULL):** Data aproximada do início da gestação.  
+- **`lmp_date` (DATE, NOT NULL):** Data da última menstruação (LMP).  
+- **`gestational_week` (INTEGER):** Semana gestacional.  
+- **`comorbidities` (TEXT):** Possíveis comorbidades da gestante.  
+- **`create_date` (TIMESTAMP, DEFAULT CURRENT_TIMESTAMP):** Data de criação do registro.  
+- **`update_date` (TIMESTAMP, DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP):** Data de última atualização do registro.  
+
+#### **Query de Criação:**  
 ```sql
-CREATE TABLE Gestantes (
-    id_gestante SERIAL PRIMARY KEY,
-    id_doula INTEGER NOT NULL,
-    nome TEXT NOT NULL,
-    idade INTEGER NOT NULL,
-    primeira_gestacao BOOLEAN NOT NULL,
-    inicio_gestacao DATE NOT NULL,  
-    semana_gestacao INTEGER,
-    comorbidades TEXT,
-    FOREIGN KEY (id_doula) REFERENCES Doulas(id_doula) ON DELETE CASCADE
+CREATE TABLE Pregnant (
+    id SERIAL PRIMARY KEY,
+    doula_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    age INTEGER NOT NULL,
+    first_pregnancy BOOLEAN NOT NULL,
+    pregnancy_start_date DATE NOT NULL,
+    lmp_date DATE NOT NULL,
+    gestational_week INTEGER,
+    comorbidities TEXT,
+    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (doula_id) REFERENCES Doula(id) ON DELETE CASCADE
 );
 ```
 
-### 3️.Tabela `Aulas`
+### **3️⃣ Tabela `Class`**  
 
-A tabela `Aulas` registra as aulas ministradas para cada gestante.
-#### **Campos e Tipos de Dados:**
-- **`id_aula` (SERIAL):** Identificador único da aula. É a chave primária da tabela.
-- **`id_gestante` (INTEGER):** Identificador da gestante que participou da aula. É uma chave estrangeira que referencia o campo `id_gestante` da tabela `Gestantes`.
-- **`numero_aula` (INTEGER):** Número sequencial da aula.
-- **`tipo_aula` (TEXT):** Tipo de aula ministrada (por exemplo, parto, amamentação, cuidados com o bebê).
-- **`data_aula` (DATE):** Data em que a aula foi realizada.
-- **`semana_gestacional` (INTEGER):** Semana gestacional da gestante no momento da aula.
+A tabela `Class` (Aula) armazena os registros de aulas ministradas para cada gestante.  
 
-#### **Query de Criação:**
+#### **Campos e Tipos de Dados:**  
+- **`id` (SERIAL, PK):** Identificador único da aula.  
+- **`pregnant_id` (INTEGER, FK, NOT NULL):** Referência para a gestante participante.  
+- **`class_number` (INTEGER, NOT NULL):** Número sequencial da aula.  
+- **`class_type` (TEXT, NOT NULL):** Tipo de aula (ex.: parto, amamentação, cuidados com o bebê).  
+- **`class_date` (TIMESTAMP, NOT NULL):** Data e horário da aula.  
+- **`create_date` (TIMESTAMP, DEFAULT CURRENT_TIMESTAMP):** Data de criação do registro.  
+- **`update_date` (TIMESTAMP, DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP):** Data de última atualização do registro.  
+
+#### **Query de Criação:**  
 ```sql
-CREATE TABLE Aulas (
-    id_aula SERIAL PRIMARY KEY,
-    id_gestante INTEGER NOT NULL,
-    numero_aula INTEGER NOT NULL,
-    tipo_aula TEXT NOT NULL,
-    data_aula DATE NOT NULL,
-    semana_gestacional INTEGER NOT NULL,
-    FOREIGN KEY (id_gestante) REFERENCES Gestantes(id_gestante) ON DELETE CASCADE
+CREATE TABLE Class (
+    id SERIAL PRIMARY KEY,
+    pregnant_id INTEGER NOT NULL,
+    class_number INTEGER NOT NULL,
+    class_type TEXT NOT NULL,
+    class_date TIMESTAMP NOT NULL,
+    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (pregnant_id) REFERENCES Pregnant(id) ON DELETE CASCADE
 );
 ```
 
-## Relacionamentos e Regras de Integridade
-- **Relacionamento entre Doulas e Gestantes:**  
-    Cada **doula** pode cadastrar **várias gestantes**. Por isso, o campo `id_doula` na tabela `Gestantes` é uma chave estrangeira que referencia a tabela `Doulas`.
-    - **Regra:** Se uma doula for removida, todas as gestantes associadas serão automaticamente excluídas (ON DELETE CASCADE).
-- **Relacionamento entre Gestantes e Aulas:**  
-    Cada **gestante** pode ter **múltiplas aulas** registradas. Assim, o campo `id_gestante` na tabela `Aulas` é uma chave estrangeira que referencia a tabela `Gestantes`.
-    - **Regra:** Se uma gestante for removida, todas as aulas associadas também serão apagadas (ON DELETE CASCADE).
+
+## **🔗 Relacionamentos e Regras de Integridade**  
+
+### **1️⃣ Relacionamento `Doula` ↔ `Pregnant`**  
+- **1 Doula** pode acompanhar **várias Gestantes**.  
+- **Se uma Doula for removida, todas as Gestantes associadas serão automaticamente excluídas.** (`ON DELETE CASCADE`)  
+
+### **2️⃣ Relacionamento `Pregnant` ↔ `Class`**  
+- **1 Gestante** pode ter **múltiplas Aulas registradas**.  
+- **Se uma Gestante for removida, todas as Aulas associadas também serão apagadas.** (`ON DELETE CASCADE`)  
 
 
 # Backend
