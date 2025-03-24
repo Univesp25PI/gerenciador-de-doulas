@@ -15,6 +15,7 @@ Estrutura inicial do banco de dados para o sistema de cadastro de **Doulas**, **
 ## **📊 Diagrama ER (`Mermaid`)**  
 
 ```mermaid
+pregnancy_start_date  e o gestational_week 
 ---
 config:
   theme: neutral
@@ -34,9 +35,7 @@ erDiagram
         string name
         int age
         bool first_pregnancy
-        date pregnancy_start_date
         date lmp_date
-        int gestational_week
         string comorbidities
         datetime create_date
         datetime update_date
@@ -92,9 +91,7 @@ A tabela `Pregnant` (Gestante) armazena os dados das gestantes acompanhadas pela
 - **`name` (TEXT, NOT NULL):** Nome completo da gestante.  
 - **`age` (INTEGER, NOT NULL):** Idade da gestante.  
 - **`first_pregnancy` (BOOLEAN, NOT NULL):** Indica se é a primeira gestação.  
-- **`pregnancy_start_date` (DATE, NOT NULL):** Data aproximada do início da gestação.  
 - **`lmp_date` (DATE, NOT NULL):** Data da última menstruação (LMP).  
-- **`gestational_week` (INTEGER):** Semana gestacional.  
 - **`comorbidities` (TEXT):** Possíveis comorbidades da gestante.  
 - **`create_date` (TIMESTAMP, DEFAULT CURRENT_TIMESTAMP):** Data de criação do registro.  
 - **`update_date` (TIMESTAMP, DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP):** Data de última atualização do registro.  
@@ -107,9 +104,7 @@ CREATE TABLE Pregnant (
     name TEXT NOT NULL,
     age INTEGER NOT NULL,
     first_pregnancy BOOLEAN NOT NULL,
-    pregnancy_start_date DATE NOT NULL,
     lmp_date DATE NOT NULL,
-    gestational_week INTEGER,
     comorbidities TEXT,
     create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
