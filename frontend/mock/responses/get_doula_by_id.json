@@ -1,0 +1,13 @@
+{
+    "data": {
+        "id": 1,
+        "nome": "Julia Stitia",
+        "telefone": "11912345678",
+        "email": "email@email.com.br",
+        "create_date": "2025-02-24 15:30:00",
+        "update_date": "2025-02-24 15:30:00"
+    },
+    "metadata": {
+        "request_date_time": "2025-03-24T14:30:00"
+    }
+}
