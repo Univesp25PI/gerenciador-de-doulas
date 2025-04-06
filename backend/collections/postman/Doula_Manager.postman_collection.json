@@ -1,0 +1,76 @@
+{
+	"info": {
+		"_postman_id": "04fa7404-6751-4a95-85dd-579a26ba610a",
+		"name": "Doula Manager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18305819"
+	},
+	"item": [
+		{
+			"name": "doula",
+			"item": [
+				{
+					"name": "Create_doula",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v1/hello-world",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"hello-world"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "gestante",
+			"item": []
+		},
+		{
+			"name": "aula",
+			"item": []
+		},
+		{
+			"name": "health_check",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Hello-Id",
+						"value": "1",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/actuator/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actuator",
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
