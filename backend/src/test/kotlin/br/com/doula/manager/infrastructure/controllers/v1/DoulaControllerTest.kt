@@ -11,13 +11,14 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPat
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import br.com.doula.manager.infrastructure.usecase.CreateDoulaUseCase
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import io.mockk.mockk
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 
-class DoulaEntityControllerTest {
+class DoulaControllerTest {
 
     private lateinit var mockMvc: MockMvc
     private lateinit var createUseCase: CreateDoulaUseCase
@@ -26,7 +27,7 @@ class DoulaEntityControllerTest {
     @BeforeEach
     fun setUp() {
         createUseCase = mockk()
-        objectMapper = ObjectMapper()
+        objectMapper = ObjectMapper().registerModule(JavaTimeModule())
 
         mockMvc = MockMvcBuilders
             .standaloneSetup(DoulaController(createUseCase))
