@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.dao.DataIntegrityViolationException
 import kotlin.test.assertFailsWith
 
-class DoulaGatewayImplTest {
+class DoulaEntityGatewayImplTest {
     private lateinit var doulaGateway: DoulaGatewayImpl
     private lateinit var doulaRepository: DoulaRepository
 

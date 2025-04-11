@@ -1,7 +1,7 @@
 package br.com.doula.manager.infrastructure.usecase.impl
 
 import br.com.doula.manager.infrastructure.gateway.DoulaGateway
-import br.com.doula.manager.infrastructure.model.DoulaModel
+import br.com.doula.manager.infrastructure.model.DoulaDataModel
 import br.com.doula.manager.infrastructure.model.ResponseDataModel
 import io.mockk.mockk
 import io.mockk.every
@@ -22,14 +22,14 @@ class CreateDoulaUseCaseImplTest {
 
     @Test
     fun `should create doula successfully`() {
-        val doulaModel = mockk<ResponseDataModel<DoulaModel>>()
+        val doulaDataModel = mockk<ResponseDataModel<DoulaDataModel>>()
 
-        every { doulaGateway.createDoula(doulaModel) } returns doulaModel
+        every { doulaGateway.createDoula(doulaDataModel) } returns doulaDataModel
 
-        val result = createDoulaUseCase.createDoula(doulaModel)
+        val result = createDoulaUseCase.createDoula(doulaDataModel)
 
-        assertEquals(doulaModel, result)
+        assertEquals(doulaDataModel, result)
 
-        verify { doulaGateway.createDoula(doulaModel) }
+        verify { doulaGateway.createDoula(doulaDataModel) }
     }
 }

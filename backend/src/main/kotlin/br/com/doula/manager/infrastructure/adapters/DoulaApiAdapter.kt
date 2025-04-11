@@ -1,23 +1,23 @@
 package br.com.doula.manager.infrastructure.adapters
 
-import br.com.doula.manager.infrastructure.model.DoulaModel
+import br.com.doula.manager.infrastructure.model.DoulaDataModel
 import br.com.doula.manager.infrastructure.model.ResponseDataModel
 import br.com.doula.manager.infrastructure.request.DoulaRequest
 import br.com.doula.manager.infrastructure.response.DoulaResponse
 import br.com.doula.manager.infrastructure.response.ResponseData
 
 object DoulaApiAdapter {
-    fun toResponse(model: ResponseDataModel<DoulaModel>): ResponseData<DoulaResponse> =
+    fun toResponse(model: ResponseDataModel<DoulaDataModel>): ResponseData<DoulaResponse> =
         ResponseData(
             data = dataToResponse(model.data)
         )
 
-    fun toModel(request: DoulaRequest): ResponseDataModel<DoulaModel> =
+    fun toModel(request: DoulaRequest): ResponseDataModel<DoulaDataModel> =
         ResponseDataModel(
             data = requestToModel(request)
         )
 
-    private fun dataToResponse(model: DoulaModel): DoulaResponse =
+    private fun dataToResponse(model: DoulaDataModel): DoulaResponse =
         DoulaResponse(
             id = model.id!!,
             name = model.name,
@@ -27,8 +27,8 @@ object DoulaApiAdapter {
             updateDate = model.updateDate!!
         )
 
-    private fun requestToModel(request: DoulaRequest): DoulaModel =
-        DoulaModel(
+    private fun requestToModel(request: DoulaRequest): DoulaDataModel =
+        DoulaDataModel(
             name = request.name,
             phone = request.phone,
             email = request.email,

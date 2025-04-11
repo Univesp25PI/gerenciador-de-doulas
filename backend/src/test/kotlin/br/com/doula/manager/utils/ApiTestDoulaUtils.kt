@@ -1,6 +1,6 @@
 package br.com.doula.manager.utils
 
-import br.com.doula.manager.infrastructure.model.DoulaModel
+import br.com.doula.manager.infrastructure.model.DoulaDataModel
 import br.com.doula.manager.infrastructure.model.ResponseDataModel
 import br.com.doula.manager.infrastructure.request.DoulaRequest
 
@@ -12,7 +12,7 @@ object ApiTestDoulaUtils {
 
     val DOULA_MODEL = ResponseDataModel(
         data =
-            DoulaModel(
+            DoulaDataModel(
                 id = 1L,
                 name = DOULA_NAME,
                 email = DOULA_EMAIL,

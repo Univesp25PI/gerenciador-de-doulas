@@ -1,6 +1,6 @@
 package br.com.doula.manager.utils
 
-import br.com.doula.manager.infrastructure.model.DoulaModel
+import br.com.doula.manager.infrastructure.model.DoulaDataModel
 import br.com.doula.manager.infrastructure.model.ResponseDataModel
 
 object CoreTestDoulaUtils {
@@ -11,7 +11,7 @@ object CoreTestDoulaUtils {
 
     val DOULA_MODEL = ResponseDataModel(
         data =
-            DoulaModel(
+            DoulaDataModel(
                 id = 1L,
                 name = DOULA_NAME,
                 email = DOULA_EMAIL,

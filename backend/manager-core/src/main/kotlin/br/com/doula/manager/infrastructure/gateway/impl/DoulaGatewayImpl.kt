@@ -4,7 +4,7 @@ import br.com.doula.manager.infrastructure.adapters.DoulaCoreAdapter
 import br.com.doula.manager.infrastructure.enums.ErrorCodeManagerEnum
 import br.com.doula.manager.infrastructure.exception.DefaultManagerException
 import br.com.doula.manager.infrastructure.gateway.DoulaGateway
-import br.com.doula.manager.infrastructure.model.DoulaModel
+import br.com.doula.manager.infrastructure.model.DoulaDataModel
 import br.com.doula.manager.infrastructure.model.ResponseDataModel
 import br.com.doula.manager.infrastructure.repository.DoulaRepository
 import org.slf4j.LoggerFactory
@@ -19,7 +19,7 @@ class DoulaGatewayImpl(
         val log = LoggerFactory.getLogger(this::class.java)
     }
 
-    override fun createDoula(model: ResponseDataModel<DoulaModel>): ResponseDataModel<DoulaModel> {
+    override fun createDoula(model: ResponseDataModel<DoulaDataModel>): ResponseDataModel<DoulaDataModel> {
         val entity = DoulaCoreAdapter.toEntity(model)
         try {
             val persistedEntity = doulaRepository.save(entity)

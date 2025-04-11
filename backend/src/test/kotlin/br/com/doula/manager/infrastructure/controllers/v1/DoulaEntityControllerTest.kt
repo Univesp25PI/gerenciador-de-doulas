@@ -1,6 +1,6 @@
 package br.com.doula.manager.infrastructure.controllers.v1
 
-import br.com.doula.manager.infrastructure.model.DoulaModel
+import br.com.doula.manager.infrastructure.model.DoulaDataModel
 import br.com.doula.manager.infrastructure.model.ResponseDataModel
 import br.com.doula.manager.utils.ApiTestDoulaUtils.DOULA_MODEL
 import br.com.doula.manager.utils.ApiTestDoulaUtils.DOULA_REQUEST
@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 
-class DoulaControllerTest {
+class DoulaEntityControllerTest {
 
     private lateinit var mockMvc: MockMvc
     private lateinit var createUseCase: CreateDoulaUseCase
@@ -37,7 +37,7 @@ class DoulaControllerTest {
     fun `should return 200 when create doula`() {
         val requestJson = objectMapper.writeValueAsString(DOULA_REQUEST)
 
-        every { createUseCase.createDoula(any<ResponseDataModel<DoulaModel>>()) } returns DOULA_MODEL
+        every { createUseCase.createDoula(any<ResponseDataModel<DoulaDataModel>>()) } returns DOULA_MODEL
 
         mockMvc.perform(
             post("/v1/doula")
@@ -55,7 +55,7 @@ class DoulaControllerTest {
             DOULA_REQUEST.copy(phone = "invalid", email = "invalid")
         )
 
-        every { createUseCase.createDoula(any<ResponseDataModel<DoulaModel>>()) } returns DOULA_MODEL
+        every { createUseCase.createDoula(any<ResponseDataModel<DoulaDataModel>>()) } returns DOULA_MODEL
 
         mockMvc.perform(
             post("/v1/doula")

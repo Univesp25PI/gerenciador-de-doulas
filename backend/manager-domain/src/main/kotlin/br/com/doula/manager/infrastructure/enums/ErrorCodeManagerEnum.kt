@@ -5,6 +5,9 @@ enum class ErrorCodeManagerEnum(
     val description: String,
     val httpCode: Int
 ) {
-    INVALID_REQUEST("DTA0002", "Some fields in the request are invalid: ", 400),
-    DUPLICATED_DOULA("DTA0002", "Doula email already registred.", 409)
+    INVALID_REQUEST("DTA0001", "Some fields in the request are invalid: ", 400),
+    UNKNOWN_DATABASE_ERROR("DTA0002", "A database error occurred while processing the request.", 500),
+    DUPLICATED_DOULA("DTA0003", "Doula email already registred.", 409),
+    DUPLICATED_PREGNANT("DTA0004", "Pregnant email already registered.", 409),
+    INVALID_DOULA_REFERENCE("DTA0005", "Invalid Doula Id.", 409)
 }

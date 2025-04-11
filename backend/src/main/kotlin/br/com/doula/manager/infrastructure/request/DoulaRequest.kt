@@ -1,11 +1,10 @@
 package br.com.doula.manager.infrastructure.request
 
-import jakarta.validation.constraints.Email
-import jakarta.validation.constraints.NotNull
-import jakarta.validation.constraints.Pattern
+import jakarta.validation.constraints.*
 
 data class DoulaRequest(
-    @field:NotNull
+    @field:NotBlank(message = "O nome é obrigatório")
+    @field:Size(max = 100, message = "O nome deve ter no máximo 100 caracteres")
     val name: String,
     @field:NotNull
     @field:Pattern(
