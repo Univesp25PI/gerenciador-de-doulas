@@ -6,4 +6,6 @@ object CoreTestUtils {
     val GENERIC_PHONE = "11999999999"
     val GENERIC_DATE = "2025-03-30T14:25:36.123456"
     val GENERIC_AGE = 32
+    val GENERIC_NUMBER = 2
+    val GENERIC_WEEK = 12
 }

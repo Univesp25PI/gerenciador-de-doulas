@@ -1,11 +1,13 @@
 package br.com.doula.manager.infrastructure.entity
 
 import jakarta.persistence.*
+import org.hibernate.annotations.CreationTimestamp
+import org.hibernate.annotations.UpdateTimestamp
 import java.time.LocalDateTime
 
 @Entity
 @Table(name = "Class")
-data class ClassEntity(
+data class LessonEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
@@ -23,9 +25,11 @@ data class ClassEntity(
     @Column(name = "class_date", nullable = false)
     val classDate: LocalDateTime,
 
+    @CreationTimestamp
     @Column(name = "create_date")
     val createDate: LocalDateTime? = null,
 
+    @UpdateTimestamp
     @Column(name = "update_date")
     val updateDate: LocalDateTime? = null
 )

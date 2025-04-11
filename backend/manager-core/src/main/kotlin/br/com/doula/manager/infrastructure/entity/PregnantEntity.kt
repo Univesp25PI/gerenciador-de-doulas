@@ -15,25 +15,25 @@ data class PregnantEntity(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doula_id", nullable = false)
-    val doula: DoulaEntity,
+    val doula: DoulaEntity? = null,
 
     @Column(nullable = false)
-    val name: String,
+    val name: String? = null,
 
     @Column(nullable = false)
-    val phone: String,
+    val phone: String? = null,
 
     @Column(nullable = false, unique = true)
-    val email: String,
+    val email: String? = null,
 
     @Column(nullable = false)
-    val age: Int,
+    val age: Int? = null,
 
     @Column(name = "first_pregnancy", nullable = false)
-    val firstPregnancy: Boolean,
+    val firstPregnancy: Boolean? = null,
 
     @Column(name = "lmp_date", nullable = false)
-    val lmpDate: LocalDate,
+    val lmpDate: LocalDate? = null,
 
     val comorbidities: String? = null,
 
@@ -46,5 +46,5 @@ data class PregnantEntity(
     val updateDate: LocalDateTime? = null,
 
     @OneToMany(mappedBy = "pregnant", cascade = [CascadeType.ALL], orphanRemoval = true)
-    val classList: List<ClassEntity> = emptyList()
+    val classList: List<LessonEntity> = emptyList()
 )

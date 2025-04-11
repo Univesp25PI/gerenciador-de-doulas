@@ -38,7 +38,7 @@ class PregnantGatewayImpl(
 
                 "pregnant_doula_id_fkey" in rootMessage -> {
                     log.error(
-                        "Failed to save Pregnant. Doula with ID ${entity.doula.id} does not exist.", ex
+                        "Failed to save Pregnant. Doula with ID ${entity.doula?.id} does not exist.", ex
                     )
                     throw DefaultManagerException(ErrorCodeManagerEnum.INVALID_DOULA_REFERENCE)
                 }

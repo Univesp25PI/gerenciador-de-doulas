@@ -24,7 +24,7 @@ class CreatePregnantUseCaseImplTest {
     }
 
     @Test
-    fun `should create doula successfully`() {
+    fun `should create pregnant successfully`() {
         val pregnantDataModel = mockk<ResponseDataModel<PregnantDataModel>>(relaxed = true)
 
         every { gateway.createPregnant(pregnantDataModel) } returns pregnantDataModel

@@ -27,13 +27,13 @@ object PregnantCoreAdapter {
     private fun entityToModel(entity: PregnantEntity): PregnantDataModel =
         PregnantDataModel(
             id = entity.id,
-            name = entity.name,
-            age = entity.age,
-            phone = entity.phone,
-            email = entity.email,
-            firstPregnancy = entity.firstPregnancy,
-            lmpDate = entity.lmpDate,
-            idDoula = entity.doula.id!!,
+            name = entity.name!!,
+            age = entity.age!!,
+            phone = entity.phone!!,
+            email = entity.email!!,
+            firstPregnancy = entity.firstPregnancy!!,
+            lmpDate = entity.lmpDate!!,
+            idDoula = entity.doula?.id!!,
             comorbidities = ComorbiditiesEnum.stringToList(entity.comorbidities),
             updateDate = entity.updateDate,
             createDate = entity.createDate

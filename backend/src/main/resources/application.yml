@@ -1,6 +1,8 @@
 spring:
   profiles:
     active: local
+  jackson:
+    property-naming-strategy: SNAKE_CASE
   application:
     name: doula-manager
   jpa:
