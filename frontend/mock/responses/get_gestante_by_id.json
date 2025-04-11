@@ -4,6 +4,8 @@
         "id_doula": 1,
         "nome": "Fuuko Izumo",
         "idade": 20,
+        "telefone": "11912345678",
+        "email": "email@email.com.br",
         "primeira_gestacao": true,
         "ultima_menstruacao": "20/11/2024",
         "semana_gestacao": "17",

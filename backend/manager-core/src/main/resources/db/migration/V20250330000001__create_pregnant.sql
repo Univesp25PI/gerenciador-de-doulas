@@ -3,6 +3,8 @@ CREATE TABLE IF NOT EXISTS Pregnant (
                                         id SERIAL PRIMARY KEY,
                                         doula_id INTEGER NOT NULL,
                                         name TEXT NOT NULL,
+                                        phone TEXT NOT NULL,
+                                        email TEXT UNIQUE NOT NULL,
                                         age INTEGER NOT NULL,
                                         first_pregnancy BOOLEAN NOT NULL,
                                         lmp_date DATE NOT NULL,
