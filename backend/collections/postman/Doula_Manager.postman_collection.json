@@ -17,8 +17,17 @@
 						},
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Fuuko Izumo\",\r\n    \"phone\": \"1199999999\",\r\n    \"email\": \"fuuko@undead.unluck.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:8080/v1/hello-world",
+							"raw": "http://localhost:8080/v1/doula",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -26,7 +35,7 @@
 							"port": "8080",
 							"path": [
 								"v1",
-								"hello-world"
+								"doula"
 							]
 						}
 					},
@@ -36,11 +45,77 @@
 		},
 		{
 			"name": "gestante",
-			"item": []
+			"item": [
+				{
+					"name": "Create_pregnant",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_doula\": 1,\r\n    \"name\": \"Juiz d'Arc\",\r\n    \"age\": 32,\r\n    \"phone\": \"1199999999\",\r\n    \"email\": \"juiz@undead.unluck.com\",\r\n    \"first_pregnancy\": true,\r\n    \"lmp_date\": \"2024-03-10\",\r\n    \"comorbidities\": [\"HYPERTENSION\", \"DIABETES\", \"THYROID_DISORDER\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/pregnant",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"pregnant"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "aula",
-			"item": []
+			"item": [
+				{
+					"name": "Create_class",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_pregnant\": 1,\r\n    \"class_number\": 1,\r\n    \"class_type\": \"OBSTETRIC_INTERVENTIONS\",\r\n    \"class_date\": \"2025-05-11T15:51:23.086717\",\r\n    \"lmp_date\": \"2024-03-10\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/lesson",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"lesson"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "health_check",
