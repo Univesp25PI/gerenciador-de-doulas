@@ -32,6 +32,8 @@ erDiagram
         int id PK
         int doula_id FK
         string name
+        string phone
+        string email
         int age
         bool first_pregnancy
         date lmp_date
@@ -90,6 +92,8 @@ A tabela `Pregnant` (Gestante) armazena os dados das gestantes acompanhadas pela
 - **`doula_id` (INTEGER, FK, NOT NULL):** Referência para a doula responsável.  
 - **`name` (TEXT, NOT NULL):** Nome completo da gestante.  
 - **`age` (INTEGER, NOT NULL):** Idade da gestante.  
+- **`phone` (TEXT, NOT NULL):** Número de telefone da gestante.  
+- **`email` (TEXT, UNIQUE, NOT NULL):** Endereço de e-mail único. 
 - **`first_pregnancy` (BOOLEAN, NOT NULL):** Indica se é a primeira gestação.  
 - **`lmp_date` (DATE, NOT NULL):** Data da última menstruação (LMP).  
 - **`comorbidities` (TEXT):** Possíveis comorbidades da gestante.  
@@ -104,6 +108,8 @@ CREATE TABLE IF NOT EXISTS Pregnant (
     doula_id INTEGER NOT NULL,
     name TEXT NOT NULL,
     age INTEGER NOT NULL,
+    phone TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL,
     first_pregnancy BOOLEAN NOT NULL,
     lmp_date DATE NOT NULL,
     comorbidities TEXT,
