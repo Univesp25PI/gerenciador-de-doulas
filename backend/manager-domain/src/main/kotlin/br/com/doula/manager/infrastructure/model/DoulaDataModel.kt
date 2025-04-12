@@ -1,6 +1,6 @@
 package br.com.doula.manager.infrastructure.model
 
-data class DoulaModel(
+data class DoulaDataModel(
     val id: Long? = null,
     val name: String,
     val phone: String,
