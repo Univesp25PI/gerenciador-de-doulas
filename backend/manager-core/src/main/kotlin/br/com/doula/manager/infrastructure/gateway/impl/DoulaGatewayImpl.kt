@@ -32,4 +32,11 @@ class DoulaGatewayImpl(
             throw DefaultManagerException(ErrorCodeManagerEnum.DUPLICATED_DOULA)
         }
     }
+    override fun getDoulaById(id: Long): ResponseDataModel<DoulaDataModel> {
+        val entity = doulaRepository.findById(id)
+            .orElseThrow {
+                DefaultManagerException(ErrorCodeManagerEnum.INVALID_DOULA_REFERENCE)
+            }
+        return DoulaCoreAdapter.toModel(entity)
+    }
 }
