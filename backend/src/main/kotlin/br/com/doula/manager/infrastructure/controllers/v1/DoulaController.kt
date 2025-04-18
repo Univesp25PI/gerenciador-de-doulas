@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
+
+
 @RestController
 @RequestMapping("/v1/doula")
 class DoulaController(
@@ -36,10 +38,10 @@ class DoulaController(
     }
 
     @GetMapping("/{id}")
-    fun getDoulaById(@PathVariable id: Long): ResponseEntity<DoulaResponse>{
+    fun getDoulaById(@PathVariable id: Long): ResponseEntity<ResponseData<DoulaResponse>>{
         val doula = getDoulaByIdUseCase.getDoulaById(id)
-        val responseDataModel = ResponseDataModel(data = doula)
-        return ResponseEntity.ok(DoulaApiAdapter.toResponse(responseDataModel).data)
+        //val responseDataModel = ResponseDataModel(data = doula)
+        return ResponseEntity.ok(DoulaApiAdapter.toResponse(doula))
 
     }
 }
