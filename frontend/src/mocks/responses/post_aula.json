@@ -1,0 +1,14 @@
+{
+    "data": {
+        "id_doula": 1,
+        "id_gestante": 1,
+        "numero_aula": 5,
+        "tipo_aula": "AulaTypeEnum",
+        "data_aula": "2025-04-24 15:30:00",
+        "create_date": "2025-02-24 15:30:00",
+        "update_date": "2025-02-24 15:30:00"
+    },
+    "metadata": {
+        "request_date_time": "2025-03-24T14:30:00"
+    }
+}

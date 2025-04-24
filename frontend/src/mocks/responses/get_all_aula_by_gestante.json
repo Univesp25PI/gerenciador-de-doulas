@@ -1,0 +1,47 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "id_gestante": 2,
+            "numero_aula": 1,
+            "tipo_aula": "AulaTypeEnum",
+            "data_aula": "2025-02-24 14:30:00",
+            "semana_gestacional": 6,
+            "create_date": "2025-02-24 15:30:00",
+            "update_date": "2025-02-24 15:30:00"
+        },
+        {
+            "id": 2,
+            "id_gestante": 2,
+            "numero_aula": 1,
+            "tipo_aula": "AulaTypeEnum",
+            "data_aula": "2025-03-24 14:30:00",
+            "semana_gestacional": 10,
+            "create_date": "2025-02-24 15:30:00",
+            "update_date": "2025-02-24 15:30:00"
+        },
+        {
+            "id": 3,
+            "id_gestante": 2,
+            "numero_aula": 1,
+            "tipo_aula": "AulaTypeEnum",
+            "data_aula": "2025-04-24 14:30:00",
+            "semana_gestacional": 14,
+            "create_date": "2025-02-24 15:30:00",
+            "update_date": "2025-02-24 15:30:00"
+        },
+        {
+            "id": 4,
+            "id_gestante": 2,
+            "numero_aula": 1,
+            "tipo_aula": "AulaTypeEnum",
+            "data_aula": "2025-05-24 14:30:00",
+            "semana_gestacional": 18,
+            "create_date": "2025-02-24 15:30:00",
+            "update_date": "2025-02-24 15:30:00"
+        }
+    ],
+    "metadata": {
+        "request_date_time": "2025-03-24T14:30:00"
+    }
+}
