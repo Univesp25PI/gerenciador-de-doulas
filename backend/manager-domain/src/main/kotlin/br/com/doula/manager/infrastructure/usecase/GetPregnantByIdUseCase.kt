@@ -1,8 +1,8 @@
 package br.com.doula.manager.infrastructure.usecase
 
+import br.com.doula.manager.infrastructure.model.PregnantDataModel
 import br.com.doula.manager.infrastructure.model.ResponseDataModel
-import br.com.doula.manager.infrastructure.model.DoulaDataModel
 
-interface GetDoulaByIdUseCase{
-    fun getDoulaById(id: Long): ResponseDataModel<DoulaDataModel>
+interface GetPregnantByIdUseCase{
+    fun getPregnantById(id: Long): ResponseDataModel<PregnantDataModel>
 }

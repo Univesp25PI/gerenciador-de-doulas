@@ -5,18 +5,17 @@ import br.com.doula.manager.infrastructure.request.PregnantRequest
 import br.com.doula.manager.infrastructure.response.PregnantResponse
 import br.com.doula.manager.infrastructure.response.ResponseData
 import br.com.doula.manager.infrastructure.usecase.CreatePregnantUseCase
+import br.com.doula.manager.infrastructure.usecase.GetPregnantByIdUseCase
 import jakarta.validation.Valid
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/v1/pregnant")
 class PregnantController(
-    private val createPregnantUseCase: CreatePregnantUseCase
+    private val createPregnantUseCase: CreatePregnantUseCase,
+    private val getPregnantByIdUseCase: GetPregnantByIdUseCase
 ) {
     companion object {
         val log = LoggerFactory.getLogger(this::class.java)
@@ -33,6 +32,12 @@ class PregnantController(
         val response = PregnantApiAdapter.toResponseData(persistedModel)
 
         return ResponseEntity.ok(response)
+    }
+
+    @GetMapping("/{id}")
+    fun getPregnantById(@PathVariable id:Long): ResponseEntity<ResponseData<PregnantResponse>>{
+        val pregnant = getPregnantByIdUseCase.getPregnantById(id)
+        return ResponseEntity.ok(PregnantApiAdapter.toResponseData(pregnant))
     }
 
 }
