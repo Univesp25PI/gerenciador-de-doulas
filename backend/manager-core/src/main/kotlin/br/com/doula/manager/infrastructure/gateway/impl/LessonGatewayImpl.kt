@@ -46,4 +46,12 @@ class LessonGatewayImpl(
             throw DefaultManagerException(ErrorCodeManagerEnum.UNKNOWN_DATABASE_ERROR)
         }
     }
+
+    override fun getLessonById(id: Long): ResponseDataModel<LessonDataModel>{
+        val entity = lessonRepository.findById(id)
+            .orElseThrow{
+                DefaultManagerException(ErrorCodeManagerEnum.INVALID_REQUEST)
+            }
+        return LessonCoreAdapter.toModel(entity, entity.pregnant.lmpDate)
+    }
 }

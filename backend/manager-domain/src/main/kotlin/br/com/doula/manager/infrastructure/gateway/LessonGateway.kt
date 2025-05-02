@@ -5,4 +5,5 @@ import br.com.doula.manager.infrastructure.model.ResponseDataModel
 
 interface LessonGateway {
     fun createLesson(model: ResponseDataModel<LessonDataModel>): ResponseDataModel<LessonDataModel>
+    fun getLessonById(id: Long): ResponseDataModel<LessonDataModel>
 }

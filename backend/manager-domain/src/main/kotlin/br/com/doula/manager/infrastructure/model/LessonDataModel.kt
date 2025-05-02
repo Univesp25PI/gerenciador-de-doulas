@@ -11,7 +11,7 @@ data class LessonDataModel(
     val classType: LessonTypeEnum,
     val classDate: LocalDateTime,
     val pregnantWeek: Int? = null,
-    val lmpDate: LocalDate,
+    val lmpDate: LocalDate?,
     val createDate: LocalDateTime? = null,
     val updateDate: LocalDateTime? = null,
 )
