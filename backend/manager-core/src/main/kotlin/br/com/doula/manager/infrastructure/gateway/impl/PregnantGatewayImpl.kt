@@ -53,4 +53,12 @@ class PregnantGatewayImpl(
             throw DefaultManagerException(ErrorCodeManagerEnum.UNKNOWN_DATABASE_ERROR)
         }
     }
+
+    override fun getPregnantById(id: Long): ResponseDataModel<PregnantDataModel> {
+        val entity = pregnantRepository.findById(id)
+            .orElseThrow {
+                DefaultManagerException(ErrorCodeManagerEnum.INVALID_PREGNANT_REFERENCE)
+            }
+        return PregnantCoreAdapter.toModel(entity)
+    }
 }

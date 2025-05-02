@@ -1,9 +1,8 @@
-package br.com.doula.manager.infrastructure.gateway
+package br.com.doula.manager.infrastructure.usecase
 
 import br.com.doula.manager.infrastructure.model.PregnantDataModel
 import br.com.doula.manager.infrastructure.model.ResponseDataModel
 
-interface PregnantGateway {
-    fun createPregnant(model: ResponseDataModel<PregnantDataModel>): ResponseDataModel<PregnantDataModel>
+interface GetPregnantByIdUseCase{
     fun getPregnantById(id: Long): ResponseDataModel<PregnantDataModel>
 }
