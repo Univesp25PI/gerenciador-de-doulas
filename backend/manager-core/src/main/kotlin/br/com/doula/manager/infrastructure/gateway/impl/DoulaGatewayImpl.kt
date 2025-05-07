@@ -39,4 +39,10 @@ class DoulaGatewayImpl(
             }
         return DoulaCoreAdapter.toModel(entity)
     }
+
+    override fun getAllDoulas(): ResponseDataModel<List<DoulaDataModel>>{
+        val doulas = doulaRepository.findAll()
+            .map{DoulaCoreAdapter.entityToModel(it)}
+        return ResponseDataModel(doulas)
+    }
 }

@@ -5,6 +5,7 @@ import br.com.doula.manager.infrastructure.request.DoulaRequest
 import br.com.doula.manager.infrastructure.response.DoulaResponse
 import br.com.doula.manager.infrastructure.response.ResponseData
 import br.com.doula.manager.infrastructure.usecase.CreateDoulaUseCase
+import br.com.doula.manager.infrastructure.usecase.GetAllDoulasUseCase
 import br.com.doula.manager.infrastructure.usecase.GetDoulaByIdUseCase
 import jakarta.validation.Valid
 import org.slf4j.LoggerFactory
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/v1/doula")
 class DoulaController(
     private val createDoulaUseCase: CreateDoulaUseCase,
+    private val getAllDoulasUseCase: GetAllDoulasUseCase,
     private val getDoulaByIdUseCase: GetDoulaByIdUseCase
 ) {
     companion object {
@@ -33,6 +35,12 @@ class DoulaController(
         val response = DoulaApiAdapter.toResponse(persistedModel)
 
         return ResponseEntity.ok(response)
+    }
+
+    @GetMapping("/all")
+    fun getAllDoulas(): ResponseEntity<ResponseData<List<DoulaResponse>>>{
+        val doulas = getAllDoulasUseCase.getAllDoulas()
+        return ResponseEntity.ok(DoulaApiAdapter.toResponseList(doulas.data))
     }
 
     @GetMapping("/{id}")

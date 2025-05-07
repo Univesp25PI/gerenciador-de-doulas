@@ -33,4 +33,9 @@ object DoulaApiAdapter {
             phone = request.phone,
             email = request.email,
         )
+
+    fun toResponseList(models: List<DoulaDataModel>): ResponseData<List<DoulaResponse>> =
+        ResponseData(
+            data = models.map{dataToResponse(it)}
+        )
 }
