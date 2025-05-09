@@ -37,7 +37,7 @@ class DoulaController(
         return ResponseEntity.ok(response)
     }
 
-    @GetMapping("/all")
+    @GetMapping()
     fun getAllDoulas(): ResponseEntity<ResponseData<List<DoulaResponse>>>{
         val doulas = getAllDoulasUseCase.getAllDoulas()
         return ResponseEntity.ok(DoulaApiAdapter.toResponseList(doulas.data))
