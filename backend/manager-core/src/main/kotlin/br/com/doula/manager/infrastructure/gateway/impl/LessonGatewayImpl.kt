@@ -54,4 +54,12 @@ class LessonGatewayImpl(
             }
         return LessonCoreAdapter.toModel(entity, entity.pregnant.lmpDate)
     }
+
+    override fun getAllLessons(): ResponseDataModel<List<LessonDataModel>> {
+        val lessons = lessonRepository.findAll()
+            .map{entity ->
+                val lmp = entity.pregnant.lmpDate
+                LessonCoreAdapter.entityToModel(entity, lmp)}
+        return ResponseDataModel(lessons)
+    }
 }
