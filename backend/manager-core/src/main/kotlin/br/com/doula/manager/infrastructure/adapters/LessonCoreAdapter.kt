@@ -16,12 +16,12 @@ object LessonCoreAdapter {
             classDate = model.data.classDate,
         )
 
-    fun toModel(entity: LessonEntity, lmpDate: LocalDate): ResponseDataModel<LessonDataModel> =
+    fun toModel(entity: LessonEntity, lmpDate: LocalDate?): ResponseDataModel<LessonDataModel> =
         ResponseDataModel(
             data = entityToModel(entity, lmpDate)
         )
 
-    private fun entityToModel(entity: LessonEntity, lmpDate: LocalDate): LessonDataModel =
+    fun entityToModel(entity: LessonEntity, lmpDate: LocalDate?): LessonDataModel =
         LessonDataModel(
             id = entity.id,
             idPregnant = entity.id,
@@ -32,4 +32,5 @@ object LessonCoreAdapter {
             updateDate = entity.updateDate,
             createDate = entity.createDate
         )
+    
 }
