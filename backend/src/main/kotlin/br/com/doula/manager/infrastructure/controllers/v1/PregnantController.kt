@@ -5,6 +5,7 @@ import br.com.doula.manager.infrastructure.request.PregnantRequest
 import br.com.doula.manager.infrastructure.response.PregnantResponse
 import br.com.doula.manager.infrastructure.response.ResponseData
 import br.com.doula.manager.infrastructure.usecase.CreatePregnantUseCase
+import br.com.doula.manager.infrastructure.usecase.GetAllPregnantsUseCase
 import br.com.doula.manager.infrastructure.usecase.GetPregnantByIdUseCase
 import jakarta.validation.Valid
 import org.slf4j.LoggerFactory
@@ -15,7 +16,8 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/v1/pregnant")
 class PregnantController(
     private val createPregnantUseCase: CreatePregnantUseCase,
-    private val getPregnantByIdUseCase: GetPregnantByIdUseCase
+    private val getPregnantByIdUseCase: GetPregnantByIdUseCase,
+    private val getAllPregnantsUseCase: GetAllPregnantsUseCase
 ) {
     companion object {
         val log = LoggerFactory.getLogger(this::class.java)
@@ -32,6 +34,12 @@ class PregnantController(
         val response = PregnantApiAdapter.toResponseData(persistedModel)
 
         return ResponseEntity.ok(response)
+    }
+
+    @GetMapping()
+    fun getAllPregnants(): ResponseEntity<ResponseData<List<PregnantResponse>>>{
+        val pregnants = getAllPregnantsUseCase.getAllPregnants()
+        return ResponseEntity.ok(PregnantApiAdapter.toResponseList(pregnants.data))
     }
 
     @GetMapping("/{id}")

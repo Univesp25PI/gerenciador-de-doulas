@@ -44,4 +44,9 @@ object PregnantApiAdapter {
             createDate = data.createDate!!,
             updateDate = data.updateDate!!,
         )
+
+    fun toResponseList(models: List<PregnantDataModel>): ResponseData<List<PregnantResponse>> =
+        ResponseData(
+            data = models.map {dataToResponse(it)}
+        )
 }

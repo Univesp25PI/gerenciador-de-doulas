@@ -61,4 +61,10 @@ class PregnantGatewayImpl(
             }
         return PregnantCoreAdapter.toModel(entity)
     }
+
+    override fun getAllPregnants(): ResponseDataModel<List<PregnantDataModel>> {
+        val pregnants = pregnantRepository.findAll()
+            .map{PregnantCoreAdapter.entityToModel(it)}
+        return ResponseDataModel(pregnants)
+    }
 }
