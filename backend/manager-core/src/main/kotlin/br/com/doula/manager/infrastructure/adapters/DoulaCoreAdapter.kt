@@ -21,7 +21,7 @@ object DoulaCoreAdapter {
             updateDate = model.data.updateDate?.let { LocalDateTime.parse(it) } ?: LocalDateTime.now()
         )
 
-    private fun entityToModel(entity: DoulaEntity): DoulaDataModel =
+    fun entityToModel(entity: DoulaEntity): DoulaDataModel =
         DoulaDataModel(
             id = entity.id,
             name = entity.name!!,

@@ -24,7 +24,7 @@ object PregnantCoreAdapter {
             data = entityToModel(entity)
         )
 
-    private fun entityToModel(entity: PregnantEntity): PregnantDataModel =
+    fun entityToModel(entity: PregnantEntity): PregnantDataModel =
         PregnantDataModel(
             id = entity.id,
             name = entity.name!!,

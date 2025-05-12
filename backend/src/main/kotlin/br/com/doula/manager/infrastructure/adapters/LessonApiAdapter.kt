@@ -38,4 +38,9 @@ object LessonApiAdapter {
             classType = LessonTypeEnum.BIRTH_PHYSIOLOGY,
             lmpDate = request.lmpDate,
         )
+
+    fun toResponseList(models: List<LessonDataModel>): ResponseData<List<LessonResponse>> =
+        ResponseData(
+            data = models.map{dataToResponse(it)}
+        )
 }

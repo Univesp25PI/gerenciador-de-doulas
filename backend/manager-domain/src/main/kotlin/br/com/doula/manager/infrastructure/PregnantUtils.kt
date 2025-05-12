@@ -4,7 +4,7 @@ import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
 object PregnantUtils {
-    fun calculatePregnancyWeek(lmpDate: LocalDate, targetDate: LocalDate): Int {
+    fun calculatePregnancyWeek(lmpDate: LocalDate?, targetDate: LocalDate): Int {
         val gestationalDays = ChronoUnit.DAYS.between(lmpDate, targetDate).toInt()
 
         return gestationalDays / 7
