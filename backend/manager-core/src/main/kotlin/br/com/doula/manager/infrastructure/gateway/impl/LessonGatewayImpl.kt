@@ -31,7 +31,7 @@ class LessonGatewayImpl(
             when {
                 "class_pregnant_id_fkey" in rootMessage -> {
                     log.error(
-                        "Failed to save Class. Pregnant with ID ${entity.pregnant.id} does not exist.", ex
+                        "Failed to save Class. Pregnant with ID ${entity.pregnant!!.id} does not exist.", ex
                     )
                     throw DefaultManagerException(ErrorCodeManagerEnum.INVALID_PREGNANT_REFERENCE)
                 }
@@ -52,13 +52,13 @@ class LessonGatewayImpl(
             .orElseThrow{
                 DefaultManagerException(ErrorCodeManagerEnum.INVALID_REQUEST)
             }
-        return LessonCoreAdapter.toModel(entity, entity.pregnant.lmpDate)
+        return LessonCoreAdapter.toModel(entity, entity.pregnant!!.lmpDate)
     }
 
     override fun getAllLessons(): ResponseDataModel<List<LessonDataModel>> {
         val lessons = lessonRepository.findAll()
             .map{entity ->
-                val lmp = entity.pregnant.lmpDate
+                val lmp = entity.pregnant!!.lmpDate
                 LessonCoreAdapter.entityToModel(entity, lmp)}
         return ResponseDataModel(lessons)
     }

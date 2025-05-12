@@ -10,20 +10,20 @@ import java.time.LocalDateTime
 data class LessonEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
+    val id: Long? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pregnant_id", nullable = false)
-    val pregnant: PregnantEntity,
+    val pregnant: PregnantEntity? = null,
 
     @Column(name = "class_number", nullable = false)
-    val classNumber: Int,
+    val classNumber: Int? = null,
 
     @Column(name = "class_type", nullable = false)
-    val classType: String,
+    val classType: String? = null,
 
     @Column(name = "class_date", nullable = false)
-    val classDate: LocalDateTime,
+    val classDate: LocalDateTime? = null,
 
     @CreationTimestamp
     @Column(name = "create_date")
