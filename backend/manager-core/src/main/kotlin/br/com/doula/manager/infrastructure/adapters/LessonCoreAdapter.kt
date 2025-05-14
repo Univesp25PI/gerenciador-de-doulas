@@ -24,10 +24,10 @@ object LessonCoreAdapter {
     fun entityToModel(entity: LessonEntity, lmpDate: LocalDate?): LessonDataModel =
         LessonDataModel(
             id = entity.id,
-            idPregnant = entity.id,
-            classNumber = entity.classNumber,
-            classType = LessonTypeEnum.valueOf(entity.classType),
-            classDate = entity.classDate,
+            idPregnant = entity.id!!,
+            classNumber = entity.classNumber!!,
+            classType = LessonTypeEnum.valueOf(entity.classType!!),
+            classDate = entity.classDate!!,
             lmpDate = lmpDate,
             updateDate = entity.updateDate,
             createDate = entity.createDate
