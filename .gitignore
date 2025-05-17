@@ -27,6 +27,8 @@ Thumbs.db
 /frontend/electron-out/
 /frontend/electron-builder-cache/
 
+/node_modules
+
 # Ambientes e configurações sensíveis
 .env
 /backend/local.properties

@@ -1,29 +1,34 @@
-// src/hooks/useDoula.js
 import { useState, useEffect } from "react";
 import { DoulaService } from "../services/DoulaService";
 
-export function useDoula(id = 1) {
-  const [doula, setDoula] = useState(null);
+export function useDoulas() {
+  const [doulas, setDoulas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    async function loadDoula() {
+    async function loadDoulas() {
       try {
-        const data = await DoulaService.getById(id);
-        setDoula(data);
+        const data = await DoulaService.getAll();
+        setDoulas(data);
       } catch (err) {
-        console.error("Erro ao buscar doula:", err);
-        setError("Erro ao carregar os dados da Doula.");
+        console.error("Erro ao buscar doulas:", err);
+
+        // Captura mensagem de erro detalhada se existir
+        const mensagem =
+          err.response?.data?.errors?.Description ||
+          err.response?.data?.message ||
+          err.message ||
+          "Erro ao carregar as doulas.";
+
+        setError(mensagem);
       } finally {
         setLoading(false);
       }
     }
 
-    if (id) {
-      loadDoula();
-    }
-  }, [id]);
+    loadDoulas();
+  }, []);
 
-  return { doula, loading, error };
+  return { doulas, loading, error };
 }

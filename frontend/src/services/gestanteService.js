@@ -13,7 +13,7 @@ export const GestanteService = {
       );
     }
     else {
-      const response = await api.get('/gestante');
+      const response = await api.get('/pregnant');
       return response.data.data;
     }
   },
@@ -25,7 +25,7 @@ export const GestanteService = {
       );
     }
     else {
-      const response = await api.get(`/gestante/${id}`);
+      const response = await api.get(`/pregnant/${id}`);
       return response.data.data;
     }
   },
@@ -37,7 +37,7 @@ export const GestanteService = {
       );
     }
     else {
-      const response = await api.post('/gestante', data);
+      const response = await api.post('/pregnant', data);
       return response.data.data;
     }
   },

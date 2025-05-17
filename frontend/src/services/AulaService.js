@@ -13,7 +13,7 @@ export const AulaService = {
         setTimeout(() => resolve(mock1.data), 300)
       );
     }
-    const response = await api.get('/aula');
+    const response = await api.get('/lesson');
     return response.data.data;
   },
 
@@ -23,7 +23,7 @@ export const AulaService = {
         setTimeout(() => resolve(mock2.data), 300)
       );
     }
-    const response = await api.get(`/aulas/gestante/${gestanteId}`);
+    const response = await api.get(`/lesson/pregnant/${gestanteId}`);
     return response.data.data;
   },
 
@@ -33,7 +33,7 @@ export const AulaService = {
         setTimeout(() => resolve(mock3.data), 300)
       );
     }
-    const response = await api.get(`/aula/${id}`);
+    const response = await api.get(`/lesson/${id}`);
     return response.data;
   },
 
@@ -43,7 +43,7 @@ export const AulaService = {
         setTimeout(() => resolve(mock4.data), 300)
       );
     }
-    const response = await api.post('/aula', data);
+    const response = await api.post('/lesson', data);
     return response.data;
   },
 };

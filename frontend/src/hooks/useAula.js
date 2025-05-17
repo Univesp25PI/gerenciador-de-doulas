@@ -11,7 +11,7 @@ export function useAula(id = 1) {
     const loadAula = async () => {
       try {
         const data = await AulaService.getById(id);
-        setAula(data);
+        setAula(data.data);
       } catch (err) {
         console.error("Erro ao buscar aula:", err);
         setError("Erro ao carregar os dados da aula.");

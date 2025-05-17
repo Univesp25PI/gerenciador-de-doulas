@@ -1,16 +1,17 @@
+// src/pages/Aulas/NovaAula.js
 import { useGestantes } from "../../hooks/useGestantes";
 import { useCreateAula } from "../../hooks/useCreateAula";
+import { CLASS_TYPE_OPTIONS } from "../../constants/classTypes";
 import { useEffect, useState } from "react";
-
 import Toast from "../../components/Toast";
 
 export default function NovaAula() {
   const [form, setForm] = useState({
-    id_doula: 1,
-    id_gestante: "",
-    numero_aula: "",
-    tipo_aula: "",
-    data_aula: "",
+    id_pregnant: "",
+    class_number: "",
+    class_type: "",
+    class_date: "",
+    lmp_date: ""
   });
 
   const [toast, setToast] = useState(null);
@@ -25,7 +26,6 @@ export default function NovaAula() {
     createAula,
     loading: loadingAula,
     error: errorAula,
-    success: successAula,
   } = useCreateAula();
 
   const handleChange = (e) => {
@@ -40,13 +40,12 @@ export default function NovaAula() {
       setToast({ type: "success", message: "Aula cadastrada com sucesso!" });
       setTimeout(() => setToast(null), 3000);
 
-      // Reset do formulário
       setForm({
-        id_doula: 1,
-        id_gestante: "",
-        numero_aula: "",
-        tipo_aula: "",
-        data_aula: "",
+        id_pregnant: "",
+        class_number: "",
+        class_type: "",
+        class_date: "",
+        lmp_date: ""
       });
     });
   };
@@ -59,88 +58,112 @@ export default function NovaAula() {
   }, [errorAula]);
 
   return (
-    <div className="max-w-xl mx-auto p-6 bg-white rounded-xl shadow space-y-4">
-      <h1 className="text-2xl font-bold text-purple-700 mb-4">Cadastrar Nova Aula</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 to-purple-300 px-4">
+      <div className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-2xl space-y-6">
+        <div className="text-center">
+          <h1 className="text-3xl font-extrabold text-purple-700">Cadastrar Nova Aula</h1>
+          <p className="text-sm text-gray-600 mt-1">
+            Selecione uma gestante e preencha os dados da aula.
+          </p>
+        </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          {loadingGestantes && <p>Carregando gestantes...</p>}
-          {errorGestantes && <p className="text-red-600">{errorGestantes}</p>}
-          <label className="block font-medium">Gestante</label>
-          <select
-            name="id_gestante"
-            value={form.id_gestante}
-            onChange={handleChange}
-            className="w-full border p-2 rounded"
-            required
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Gestante */}
+          <div>
+            <label className="block font-medium text-gray-700 mb-1">Gestante</label>
+            {loadingGestantes && <p className="text-sm text-gray-500">Carregando gestantes...</p>}
+            {errorGestantes && <p className="text-red-600 text-sm">{errorGestantes}</p>}
+            <select
+              name="id_pregnant"
+              value={form.id_pregnant}
+              onChange={handleChange}
+              className="w-full border border-purple-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
+              required
+            >
+              <option value="">Selecione uma gestante</option>
+              {gestantes.map((g) => (
+                <option key={g.id} value={g.id}>
+                  {g.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Número da Aula */}
+          <div>
+            <label className="block font-medium text-gray-700 mb-1">Número da Aula</label>
+            <input
+              type="number"
+              name="class_number"
+              value={form.class_number}
+              onChange={handleChange}
+              className="w-full border border-purple-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
+              required
+            />
+          </div>
+
+          {/* Tipo de Aula */}
+          <div>
+            <label className="block font-medium text-gray-700 mb-1">Tipo de Aula</label>
+            <select
+              name="class_type"
+              value={form.class_type}
+              onChange={handleChange}
+              className="w-full border border-purple-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
+              required
+            >
+              <option value="">Selecione...</option>
+              {CLASS_TYPE_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Data da Aula */}
+          <div>
+            <label className="block font-medium text-gray-700 mb-1">Data e Hora</label>
+            <input
+              type="datetime-local"
+              name="class_date"
+              value={form.class_date}
+              onChange={handleChange}
+              className="w-full border border-purple-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
+              required
+            />
+          </div>
+
+          {/* Última menstruação */}
+          <div>
+            <label className="block font-medium text-gray-700 mb-1">Última Menstruação</label>
+            <input
+              type="date"
+              name="lmp_date"
+              value={form.lmp_date}
+              onChange={handleChange}
+              className="w-full border border-purple-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-purple-600 text-white py-3 rounded-lg font-medium hover:bg-purple-700 transition"
+            disabled={loadingAula}
           >
-            <option value="">Selecione uma gestante</option>
-            {gestantes.map((g) => (
-              <option key={g.id} value={g.id}>
-                {g.nome}
-              </option>
-            ))}
-          </select>
-        </div>
+            {loadingAula ? "Salvando..." : "Salvar Aula"}
+          </button>
+        </form>
 
-        <div>
-          <label className="block font-medium">Número da Aula</label>
-          <input
-            type="number"
-            name="numero_aula"
-            value={form.numero_aula}
-            onChange={handleChange}
-            className="w-full border p-2 rounded"
-            required
+        {toast && (
+          <Toast
+            message={toast.message}
+            type={toast.type}
+            onClose={() => setToast(null)}
           />
-        </div>
-
-        <div>
-          <label className="block font-medium">Tipo de Aula</label>
-          <select
-            name="tipo_aula"
-            value={form.tipo_aula}
-            onChange={handleChange}
-            className="w-full border p-2 rounded"
-            required
-          >
-            <option value="">Selecione...</option>
-            <option value="PreNatal">Pré-natal</option>
-            <option value="Amamentacao">Amamentação</option>
-            <option value="Parto">Plano de Parto</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block font-medium">Data e hora da Aula</label>
-          <input
-            type="datetime-local"
-            name="data_aula"
-            value={form.data_aula}
-            onChange={handleChange}
-            className="w-full border p-2 rounded"
-            required
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition"
-          disabled={loadingAula}
-        >
-          {loadingAula ? "Salvando..." : "Salvar Aula"}
-        </button>
-      </form>
-
-      {successAula && <p className="text-green-600">Aula salva com sucesso!</p>}
-
-      {toast && (
-        <Toast
-          message={toast.message}
-          type={toast.type}
-          onClose={() => setToast(null)}
-        />
-      )}
+        )}
+      </div>
     </div>
   );
 }

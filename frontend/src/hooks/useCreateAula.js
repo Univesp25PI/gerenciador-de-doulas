@@ -12,20 +12,20 @@ export function useCreateAula() {
     setError("");
     setSuccess(false);
 
-    const payload = {
-      ...form,
-      id_doula: Number(form.id_doula),
-      id_gestante: Number(form.id_gestante),
-      numero_aula: Number(form.numero_aula),
-    };
-
     try {
-      const data = await AulaService.create(payload);
+      const result = await AulaService.create(form);
       setSuccess(true);
-      if (onSuccess) onSuccess(data);
+      if (onSuccess) onSuccess(result);
     } catch (err) {
       console.error("Erro ao criar aula:", err);
-      setError("Erro ao cadastrar aula.");
+
+      const apiMessage =
+        err?.response?.data?.message ||
+        err?.response?.data?.error ||
+        err?.message ||
+        "Erro desconhecido";
+
+      setError(apiMessage);
     } finally {
       setLoading(false);
     }
