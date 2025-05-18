@@ -2,7 +2,6 @@ import { useGestantes } from "../hooks/useGestantes";
 import { useAulas } from "../hooks/useAulas";
 import { Link } from "react-router-dom";
 import { routes } from "../routes";
-import { getClassTypeLabel } from "../constants/classTypes";
 
 export default function Home() {
   const { gestantes } = useGestantes();

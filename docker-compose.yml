@@ -28,15 +28,16 @@ services:
     depends_on:
       - postgres
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend-doula
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: always
+
 volumes:
   postgres_data:
-
-  # Futuro serviço do frontend (comentado por enquanto)
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "8081:8081"
-  #   depends_on:
-  #     - backend
