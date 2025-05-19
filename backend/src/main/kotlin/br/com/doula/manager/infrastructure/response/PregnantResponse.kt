@@ -20,6 +20,12 @@ data class PregnantResponse(
     @Schema(description = "Idade da gestante", example = "28")
     val age: Int,
 
+    @Schema(description = "Número de telefone com DDD", example = "11988887777")
+    val phone: String,
+
+    @Schema(description = "Endereço de e-mail da gestante", example = "ana.souza@gmail.com")
+    val email: String,
+
     @Schema(description = "Indica se é a primeira gestação", example = "true")
     val firstPregnancy: Boolean,
 
