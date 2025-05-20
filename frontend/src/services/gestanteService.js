@@ -6,7 +6,7 @@ import mock3 from '../mocks/responses/post_gestante.json';
 const useMock = process.env.REACT_APP_USE_MOCK === "true";
 
 export const GestanteService = {
-  getAllByDoula: async () => {
+  getAll: async () => {
     if (useMock) {
       return new Promise((resolve) =>
         setTimeout(() => resolve(mock1.data), 300)

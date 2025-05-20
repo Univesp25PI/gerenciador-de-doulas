@@ -10,7 +10,7 @@ export function useGestantes() {
   useEffect(() => {
     const loadGestantes = async () => {
       try {
-        const data = await GestanteService.getAllByDoula();
+        const data = await GestanteService.getAll();
         setGestantes(data);
       } catch (err) {
         console.log("erro", err)

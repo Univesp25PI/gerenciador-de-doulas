@@ -53,8 +53,6 @@ export default function NovaGestante() {
         phone: "",
         primeira_gestacao: false,
         ultima_menstruacao: "",
-        semana_gestacao: "",
-        previsao_parto: "",
         comorbidades: [],
       });
     });
@@ -75,8 +73,6 @@ export default function NovaGestante() {
           <InputField label="Idade" name="idade" type="number" value={form.idade} onChange={handleChange} required />
           <CheckboxField label="Primeira gestação?" name="primeira_gestacao" checked={form.primeira_gestacao} onChange={handleChange} />
           <InputField label="Última menstruação" name="ultima_menstruacao" type="date" value={form.ultima_menstruacao} onChange={handleChange} required />
-          <InputField label="Semana gestacional" name="semana_gestacao" type="number" value={form.semana_gestacao} onChange={handleChange} />
-          <InputField label="Previsão de parto" name="previsao_parto" type="date" value={form.previsao_parto} onChange={handleChange} required />
           <InputField label="E-mail" name="email" type="email" value={form.email} onChange={handleChange} required />
           <InputField label="Telefone" name="phone" type="tel" value={form.phone} onChange={handleChange} required />
 

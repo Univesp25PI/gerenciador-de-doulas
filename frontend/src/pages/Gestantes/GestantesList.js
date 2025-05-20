@@ -7,14 +7,19 @@ export default function GestantesList() {
   const [currentPage, setCurrentPage] = useState(1);
   const gestantesPerPage = 5;
 
+  const doula = JSON.parse(localStorage.getItem("doula_logada") || "null");
+  const doulaId = doula?.id;
+
+  const minhasGestantes = gestantes?.filter((g) => g.id_doula === doulaId) || [];
+
   if (loading)
     return <div className="p-6 text-purple-600 text-center">Carregando gestantes...</div>;
   if (error)
     return <div className="p-6 text-red-600 text-center">{error}</div>;
 
-  const totalPages = Math.ceil(gestantes.length / gestantesPerPage);
+  const totalPages = Math.ceil(minhasGestantes.length / gestantesPerPage);
   const startIndex = (currentPage - 1) * gestantesPerPage;
-  const currentGestantes = gestantes.slice(startIndex, startIndex + gestantesPerPage);
+  const currentGestantes = minhasGestantes.slice(startIndex, startIndex + gestantesPerPage);
 
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {

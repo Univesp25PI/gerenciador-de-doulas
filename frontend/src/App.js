@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 
 import Home from './pages/Home';
 import About from './pages/About';
-import Contact from './pages/Contact';
 import GestanteDetail from './pages/Gestantes/GestanteDetail'; 
 import NovaGestante from './pages/Gestantes/NovaGestante'; 
 import Navbar from "./components/Navbar";
@@ -33,7 +32,6 @@ function App() {
         <Route path="/login-fake" element={<LoginFake />} />
  
         <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
         <Route path="/gestantes/:id" element={<GestanteDetail />} />
         <Route path="/gestantes/nova" element={<NovaGestante />} />
         <Route path="/aulas/nova" element={<NovaAula />} />

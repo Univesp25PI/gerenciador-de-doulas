@@ -1,5 +1,3 @@
-// src/pages/EscolherPerfil.jsx
-
 import { Link } from "react-router-dom";
 import { Baby, HeartPulse } from "lucide-react";
 
