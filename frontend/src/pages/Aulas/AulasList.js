@@ -11,6 +11,10 @@ export default function AulasList() {
   const [currentPage, setCurrentPage] = useState(1);
   const aulasPerPage = 5;
 
+  const doulaRaw = localStorage.getItem("doula_logada");
+  const doula = doulaRaw ? JSON.parse(doulaRaw) : null;
+  const idDoula = doula?.id;
+
   if (loadingAula || loadingGestante)
     return <div className="p-6 text-purple-600 text-center">Carregando aulas...</div>;
 
@@ -22,9 +26,16 @@ export default function AulasList() {
     return g?.name || g?.nome || `#${idPregnant}`;
   };
 
-  const totalPages = Math.ceil(aulas.length / aulasPerPage);
+  // Filtra as gestantes da doula logada
+  const gestantesDaDoula = gestantes.filter(g => g.id_doula === idDoula);
+  const idsGestantes = gestantesDaDoula.map(g => g.id);
+
+  // Filtra as aulas cujas gestantes pertencem à doula
+  const aulasFiltradas = aulas.filter(aula => idsGestantes.includes(aula.id_pregnant));
+
+  const totalPages = Math.ceil(aulasFiltradas.length / aulasPerPage);
   const startIndex = (currentPage - 1) * aulasPerPage;
-  const currentAulas = aulas.slice(startIndex, startIndex + aulasPerPage);
+  const currentAulas = aulasFiltradas.slice(startIndex, startIndex + aulasPerPage);
 
 
   const handlePageChange = (page) => {

@@ -10,7 +10,7 @@ export function useDoula() {
     setErro("");
     try {
       const response = await api.post("/doula", dados);
-      const novaDoula = response.data;
+      const novaDoula = response.data.data;
       onSuccess(novaDoula);
     } catch (err) {
       setErro("Erro ao cadastrar doula.");

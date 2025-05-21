@@ -15,12 +15,17 @@ export default function NovaAula() {
   });
 
   const [toast, setToast] = useState(null);
+  const doulaRaw = localStorage.getItem("doula_logada");
+  const doula = doulaRaw ? JSON.parse(doulaRaw) : null;
+  const idDoula = doula?.id;
 
   const {
     gestantes,
     loading: loadingGestantes,
     error: errorGestantes,
   } = useGestantes();
+
+  const gestantesDaDoula = gestantes.filter(g => g.id_doula === idDoula);
 
   const {
     createAula,
@@ -81,7 +86,7 @@ export default function NovaAula() {
               required
             >
               <option value="">Selecione uma gestante</option>
-              {gestantes.map((g) => (
+              {gestantesDaDoula.map((g) => (
                 <option key={g.id} value={g.id}>
                   {g.name}
                 </option>

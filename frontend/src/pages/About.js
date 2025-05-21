@@ -4,8 +4,8 @@ import Avatar from "../components/Avatar";
 function About() {
   // Pegando do localStorage
   const doulaRaw = localStorage.getItem("doula_logada");
-  const doula = doulaRaw ? JSON.parse(doulaRaw) : null;
-
+  const doula = JSON.parse(doulaRaw);
+  console.log(doula)
   if (!doula) {
     return (
       <div className="min-h-screen flex items-center justify-center p-6">

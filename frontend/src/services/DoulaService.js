@@ -11,7 +11,7 @@ export const DoulaService = {
       );
     }
     const response = await api.get(`/doula/${id}`);
-    return response.data;
+    return response.data.data;
   },
 
   getAll: async () => {
