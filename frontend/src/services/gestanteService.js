@@ -6,14 +6,14 @@ import mock3 from '../mocks/responses/post_gestante.json';
 const useMock = process.env.REACT_APP_USE_MOCK === "true";
 
 export const GestanteService = {
-  getAllByDoula: async () => {
+  getAll: async () => {
     if (useMock) {
       return new Promise((resolve) =>
         setTimeout(() => resolve(mock1.data), 300)
       );
     }
     else {
-      const response = await api.get('/gestante');
+      const response = await api.get('/pregnant');
       return response.data.data;
     }
   },
@@ -25,7 +25,7 @@ export const GestanteService = {
       );
     }
     else {
-      const response = await api.get(`/gestante/${id}`);
+      const response = await api.get(`/pregnant/${id}`);
       return response.data.data;
     }
   },
@@ -37,7 +37,7 @@ export const GestanteService = {
       );
     }
     else {
-      const response = await api.post('/gestante', data);
+      const response = await api.post('/pregnant', data);
       return response.data.data;
     }
   },

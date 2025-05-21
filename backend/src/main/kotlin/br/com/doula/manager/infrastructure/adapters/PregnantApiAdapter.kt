@@ -36,6 +36,8 @@ object PregnantApiAdapter {
             idDoula = data.idDoula,
             name = data.name,
             age = data.age,
+            phone = data.phone,
+            email = data.email,
             firstPregnancy = data.firstPregnancy,
             lmpDate = data.lmpDate,
             comorbidities = data.comorbidities,
