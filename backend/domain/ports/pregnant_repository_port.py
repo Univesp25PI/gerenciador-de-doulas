@@ -1,0 +1,9 @@
+from typing import Protocol, Sequence, Optional
+
+from infrastructure.db.entities import Pregnant
+
+
+class PregnantRepositoryPort(Protocol):
+    async def create(self, pregnant: Pregnant) -> Pregnant: ...
+    async def find_all(self) -> Sequence[Pregnant]: ...
+    async def find_by_id(self, id_: int) -> Optional[Pregnant]: ...
