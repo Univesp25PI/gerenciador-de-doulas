@@ -1,0 +1,104 @@
+# ----------------------------
+# Python básico
+# ----------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Extensões C
+*.so
+
+# ----------------------------
+# Ambientes virtuais
+# ----------------------------
+.venv/
+venv/
+env/
+.envrc
+.python-version
+
+# ----------------------------
+# Build & distribuição
+# ----------------------------
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+pip-log.txt
+
+# ----------------------------
+# Testes, coverage e caches
+# ----------------------------
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+.pyre/
+.pytype/
+.mypy_cache/
+.ruff_cache/
+.cache/
+pytestdebug.log
+
+# ----------------------------
+# IDE / Editor
+# ----------------------------
+.idea/
+*.iml
+.vscode/
+*.code-workspace
+
+# ----------------------------
+# SO / temporários / logs
+# ----------------------------
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+*.swo
+*.swn
+*.bak
+
+# ----------------------------
+# Variáveis de ambiente / segredos
+# ----------------------------
+.env
+.env.*
+!.env.example
+!.env.template
+
+# ----------------------------
+# Bancos locais (dev)
+# ----------------------------
+*.db
+*.sqlite
+*.sqlite3
+*.db-wal
+*.db-shm
+
+# ----------------------------
+# Uvicorn (opcional)
+# ----------------------------
+uvicorn.log
+
+# ----------------------------
+# Jupyter (se houver)
+# ----------------------------
+.ipynb_checkpoints/
+
+# ----------------------------
+# Alembic
+# (mantenha migrações versionadas!)
+# ----------------------------
+# nada aqui por padrão; exemplo opcional:
+alembic.ini.local
+
+# ----------------------------
+# Docker (opcional)
+# ----------------------------
+docker-compose.override.yml
