@@ -5,7 +5,7 @@ from interface.api.schemas.pregnant_schema import PregnantRequest, PregnantRespo
 from interface.api.schemas.doula_schema import DoulaSummary
 from infrastructure.db.entities.pregnant import Pregnant
 from domain.enums.comorbidities_enum import ComorbiditiesEnum
-from utils.pregnant_utils import PregnantUtils
+from domain.utils.pregnant_utils import PregnantUtils
 
 
 class PregnantMapper:

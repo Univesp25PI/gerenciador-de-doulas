@@ -2,7 +2,6 @@ from domain.enums.comorbidities_enum import ComorbiditiesEnum
 from domain.models.doula_model import DoulaModel
 from domain.models.pregnant_model import PregnantModel
 from infrastructure.db.entities import Pregnant
-from utils.pregnant_utils import PregnantUtils
 
 
 class PregnantInfraMapper:

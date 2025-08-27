@@ -162,8 +162,19 @@ CREATE TABLE IF NOT EXISTS Class (
 # Backend
 
 ## 🚀 Execução Local
+### Pré execução
 
-### 🐳 Via Docker
+1. Instale os requerimentos da aplicação:
+    ```
+    python -m venv .venv
+    source .venv/bin/activate   # Linux/Mac
+    .venv\Scripts\activate      # Windows
+    pip install -r requirements.txt
+2. Rode os comandos para criar as tabelas no banco de dados:
+    ```
+    alembic revision --autogenerate -m "create pregnant doula and lesson table"
+    alembic upgrade head
+### 🐳 Via Docker(deprecated)
 
 1. Instale o Docker.
 2. Na raiz do projeto, execute:
@@ -171,27 +182,28 @@ CREATE TABLE IF NOT EXISTS Class (
    docker-compose up --build
 3. Verifique se a aplicação está rodando:
     ```
-    curl --location 'http://localhost:8080/actuator/health'
-### 🖥️ Via InteliJ
-1. Instale o IntelliJ.
+    curl --location 'http://localhost:8000/health'
+### 🖥️ Via PyCharm
+1. Instale o PyCharm.
 2. Abra o projeto.
-3. Após o carregamento, execute o método main:
+3. Após o carregamento, crie uma run configurantion com as seguintes configs:
     ```
-    backend/src/main/kotlin/br/com/doula/manager/ManagerApplication.kt
+    name: doulaManager
+    run: Python 3.13
+    module: uvicorn
+    script parameters: main:app --reload
+    Env vars: PYTHONUNBUFFERED=1
 4. Verifique se a aplicação está rodando:
     ```
-    curl --location 'http://localhost:8080/actuator/health'
-### ☕ Via Java
-1. Instale o Java 21.
+    curl --location 'http://localhost:8000/health'
+### 🐍 Via Python
+1. Instale o Java 3.13.
 2. No terminal, execute na raiz do backend:
     ```
-    ./gradlew build --info --stacktrace
-3. Rode a aplicação:
+    uvicorn main:app --reload
+3. Verifique se a aplicação está rodando:
     ```
-    java -jar build/libs/manager.jar
-4. Verifique se a aplicação está rodando:
-    ```
-    curl --location 'http://localhost:8080/actuator/health'
+    curl --location 'http://localhost:8000/health'
 
 ## 🏛️ Clean Architecture
 Optamos pelo uso da **Clean Architecture** para garantir um código mais organizado, legível e de alta manutenibilidade. Garantindo uma maior **separação de responsabilidades**, tornando a aplicação menos acoplada e mais flexível.
@@ -201,71 +213,33 @@ Optamos pelo uso da **Clean Architecture** para garantir um código mais organiz
 * Facilidade de teste: O código pode ser testado isoladamente, melhorando a confiabilidade da aplicação.
 * Independência de frameworks e bancos de dados: O núcleo da aplicação não depende diretamente de tecnologias externas.
 ### Estrutura no Projeto:
-### 📌 API
-📍 Localização: **Projeto raiz**
+### 📌 INTERFACE
+📍 Localização: **Módulo interface**
 * Contém a lógica de entrada e saída.
-* Responsável pelos **controllers, responses e requests**.
-* Depende do **manager-core**.
+* Responsável pelos **controllers, responses, requests, controle de dependências e handler de erros**.
+* Depende do **domain e infrastructure**.
 
-### 📌 CORE
-📍 Localização: **Módulo manager-core**
+### 📌 INFRASTRUCTURE
+📍 Localização: **Módulo infrastructure**
 * Gerencia comunicações externas, principalmente com o banco de dados.
-* Contém **repositories, entities e implementações de gateways**.
-* Depende do **manager-domain**.
+* Contém **repositories e entities**.
+* Depende do **domain**.
 
 ### 📌 DOMAIN
 📍 Localização: Módulo manager-domain
 * Responsável pelas **regras de negócio e validações.**
-* Contém **casos de uso e models.**
+* Contém **ports, models, enums e exceptions**
 * **Não possui dependências** com outros módulos.
-* Models devem ser usados para comunicação entre camadas via **adapters.**
+* Models devem ser usados para comunicação entre camadas via **mappers.**
+
+### 📌 APPLICATION
+📍 Localização: Módulo application
+* Responsável pelos **services e uow.**
+* Contém **services e uow**
+* Depende do **domain, infrastructure e interface**.
 
 ## 📂 Collections
 As collections no formato postman da aplicação são mantidas em:
 
     backend/collections/postman
- ## Diagrama da Arquitetura do projeto
-
-```mermaid
- flowchart BT
-    
-    subgraph Domain
-        UseCases
-        Models
-        Interfaces
-    end
-
-    subgraph API
-        subgraph _line1 [ ]
-            style _line1 fill:none,stroke:none
-            Controllers
-        end 
-        subgraph _line2 [ ]
-            style _line2 fill:none,stroke:none
-            Requests
-            Responses
-        end
-    end
-
-    subgraph Core
-        subgraph _line3 [ ]
-            style _line3 fill:none,stroke:none
-            Repositories
-            Entities
-        end
-        subgraph _line4 [ ]
-            style _line4 fill:none,stroke:none
-            Gateways
-        end
-    end
-    
-    Exterior <--> API
-    A[Banco de Dados] <--> Core
-    Core --> |Gateways/CoreAdapters| Domain
-    API --> |UseCases/ApiAdapters| Domain
-
-    style Domain fill:#f9f,stroke:#333,stroke-width:4px
-    style API fill:#bbf,stroke:#333
-    style Core fill:#fbb,stroke:#333
-```
 # Frontend

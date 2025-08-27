@@ -3,6 +3,8 @@ from typing import Sequence
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
+from domain.exceptions.domain_exception import AppException
+from domain.exceptions.exception_enum import ExceptionEnum
 from domain.models.doula_model import DoulaModel
 from infrastructure.db.entities.doula import Doula
 from domain.ports.doula_repository_port import DoulaRepositoryPort
@@ -34,4 +36,6 @@ class SqlAlchemyDoulaRepository(DoulaRepositoryPort):
     async def find_by_id(self, id: int) -> DoulaModel | None:
         result = await self.db.execute(select(Doula).where(Doula.id == id))
         entity = result.scalar_one_or_none()
+        if not entity:
+            raise AppException(ExceptionEnum.DOULA_NOT_FOUND, message=f"Doula with id={id} not found")
         return DoulaInfraMapper.entity_to_model(entity)

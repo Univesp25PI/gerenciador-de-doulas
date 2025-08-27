@@ -25,7 +25,5 @@ class DoulaService:
 
     async def get_doula_by_id(self, id: int):
         doula = await self.repository.find_by_id(id)
-        if not doula:
-            raise AppException(ExceptionEnum.DOULA_NOT_FOUND, message=f"Doula with id={id} not found")
 
         return DoulaMapper.model_to_response(doula)

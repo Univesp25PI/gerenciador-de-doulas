@@ -28,8 +28,6 @@ class PregnantService:
 
     async def get_pregnant_by_id(self, id: int):
         model = await self.repository.find_by_id(id)
-        if not model:
-            raise AppException(ExceptionEnum.PREGNANT_NOT_FOUND, message=f"Pregnant with id={id} not found")
 
         doula_summary = DoulaMapper.model_to_summary(model.doula)
 

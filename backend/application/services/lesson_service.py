@@ -28,8 +28,6 @@ class LessonService:
 
     async def get_lesson_by_id(self, id: int):
         entity = await self.repository.find_by_id(id)
-        if not entity:
-            raise AppException(ExceptionEnum.LESSON_NOT_FOUND, message=f"Lesson with id={id} not found")
 
         pregnant_summary = PregnantMapper.model_to_summary(entity.pregnant)
         return LessonMapper.model_to_response(entity, pregnant_summary)

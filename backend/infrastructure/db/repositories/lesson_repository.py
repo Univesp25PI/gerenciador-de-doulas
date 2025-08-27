@@ -4,6 +4,8 @@ from sqlalchemy import select
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from domain.exceptions.domain_exception import AppException
+from domain.exceptions.exception_enum import ExceptionEnum
 from domain.models.lesson_model import LessonModel
 from infrastructure.db.entities import Lesson
 from domain.ports.lesson_repository_port import LessonRepositoryPort
@@ -43,6 +45,9 @@ class SqlAlchemyLessonRepository(LessonRepositoryPort):
     async def find_by_id(self, id: int) -> LessonModel | None:
         result = await self.db.execute(select(Lesson).where(Lesson.id == id))
         entity = result.scalar_one_or_none()
+
+        if not entity:
+            raise AppException(ExceptionEnum.LESSON_NOT_FOUND, message=f"Lesson with id={id} not found")
 
         pregnant = PregnantInfraMapper.entity_to_base_model(entity.pregnant)
 
