@@ -24,6 +24,24 @@ class DoulaModel:
         _validate_phone(phone)
         return DoulaModel(id=None, name=name.strip(), email=email.strip().lower(), phone=phone.strip())
 
+    @staticmethod
+    def from_persistence(
+            id: int,
+            name: str,
+            email: str,
+            phone: str,
+            create_date: datetime,
+            update_date: datetime,
+    ) -> "DoulaModel":
+        return DoulaModel(
+            id=id,
+            name=name.strip(),
+            email=email.strip().lower(),
+            phone=phone.strip(),
+            create_date=create_date,
+            update_date=update_date,
+        )
+
     def update_contacts(self, email: str, phone: str) -> None:
         _validate_email(email)
         _validate_phone(phone)

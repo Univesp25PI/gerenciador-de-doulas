@@ -11,26 +11,26 @@ class PregnantService:
         self.repository = repository
 
     async def create_pregnant(self, payload: PregnantRequest):
-        entity = await self.repository.create(PregnantMapper.request_to_entity(payload))
-        doula_summary = DoulaMapper.entity_to_summary(entity.doula)
+        model = await self.repository.create(PregnantMapper.request_to_model(payload))
+        doula_summary = DoulaMapper.model_to_summary(model.doula)
 
-        return  PregnantMapper.entity_to_response(entity, doula_summary)
+        return  PregnantMapper.model_to_response(model, doula_summary)
 
     async def get_all_pregnant(self):
-        entities = await self.repository.find_all()
+        models = await self.repository.find_all()
         responses: list[PregnantResponse] = []
-        for entity in entities:
-            doula_summary = DoulaMapper.entity_to_summary(entity.doula)
-            response = PregnantMapper.entity_to_response(entity, doula_summary)
+        for model in models:
+            doula_summary = DoulaMapper.model_to_summary(model.doula)
+            response = PregnantMapper.model_to_response(model, doula_summary)
             responses.append(response)
 
         return responses
 
     async def get_pregnant_by_id(self, id: int):
-        entity = await self.repository.find_by_id(id)
-        if not entity:
+        model = await self.repository.find_by_id(id)
+        if not model:
             raise AppException(ExceptionEnum.PREGNANT_NOT_FOUND, message=f"Pregnant with id={id} not found")
 
-        doula_summary = DoulaMapper.entity_to_summary(entity.doula)
+        doula_summary = DoulaMapper.model_to_summary(model.doula)
 
-        return PregnantMapper.entity_to_response(entity, doula_summary)
+        return PregnantMapper.model_to_response(model, doula_summary)

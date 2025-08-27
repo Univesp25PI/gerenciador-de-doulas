@@ -11,17 +11,17 @@ class LessonService:
         self.repository = repository
 
     async def create_lesson(self, payload: LessonRequest):
-        entity = await self.repository.create(LessonMapper.request_to_entity(payload))
-        pregnant_summary = PregnantMapper.entity_to_summary(entity.pregnant)
+        model = await self.repository.create(LessonMapper.request_to_model(payload))
+        pregnant_summary = PregnantMapper.model_to_summary(model.pregnant)
 
-        return  LessonMapper.entity_to_response(entity, pregnant_summary)
+        return  LessonMapper.model_to_response(model, pregnant_summary)
 
     async def get_all_lesson(self):
         entities = await self.repository.find_all()
         responses: list[LessonResponse] = []
         for entity in entities:
-            pregnant_summary = PregnantMapper.entity_to_summary(entity.pregnant)
-            response = LessonMapper.entity_to_response(entity, pregnant_summary)
+            pregnant_summary = PregnantMapper.model_to_summary(entity.pregnant)
+            response = LessonMapper.model_to_response(entity, pregnant_summary)
             responses.append(response)
 
         return responses
@@ -31,5 +31,5 @@ class LessonService:
         if not entity:
             raise AppException(ExceptionEnum.LESSON_NOT_FOUND, message=f"Lesson with id={id} not found")
 
-        pregnant_summary = PregnantMapper.entity_to_summary(entity.pregnant)
-        return LessonMapper.entity_to_response(entity, pregnant_summary)
+        pregnant_summary = PregnantMapper.model_to_summary(entity.pregnant)
+        return LessonMapper.model_to_response(entity, pregnant_summary)

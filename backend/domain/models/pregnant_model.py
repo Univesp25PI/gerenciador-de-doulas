@@ -2,7 +2,7 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta
-from typing import Optional, Iterable, List
+from typing import Optional, List
 
 from domain.enums.comorbidities_enum import ComorbiditiesEnum
 from domain.exceptions.domain_exception import AppException
@@ -24,8 +24,8 @@ class PregnantModel:
 
     doula: Optional[DoulaModel] = None
 
-    created_at: Optional[datetime] = None
-    updated_at: Optional[datetime] = None
+    create_date: Optional[datetime] = None
+    update_date: Optional[datetime] = None
 
     @staticmethod
     def create(
@@ -36,7 +36,7 @@ class PregnantModel:
         phone: str,
         first_pregnancy: bool,
         lmp_date_input: date | datetime,
-        comorbidities: Iterable[ComorbiditiesEnum] | None = None,
+        comorbidities: list[ComorbiditiesEnum] | None = None,
     ) -> "PregnantModel":
         _validate_positive_id(doula_id, "doula_id")
         _validate_name(name)
@@ -57,6 +57,37 @@ class PregnantModel:
             first_pregnancy=first_pregnancy,
             lmp_date=lmp_date,
             comorbidities=list(comorbidities or []),
+        )
+
+    @staticmethod
+    def from_persistence(
+            id: int,
+            name: str,
+            age: int,
+            email: str,
+            phone: str,
+            first_pregnancy: bool,
+            lmp_date: date,
+            doula_id: Optional[int] = None,
+            create_date: Optional[datetime] = None,
+            update_date: Optional[datetime] = None,
+            doula: Optional[DoulaModel] = None,
+            comorbidities: list[ComorbiditiesEnum] | None = None,
+    ) -> "PregnantModel":
+
+        return PregnantModel(
+            id=id,
+            doula_id=doula.id if doula is not None else doula_id,
+            doula=doula,
+            name=name.strip(),
+            age=age,
+            email=email.strip().lower(),
+            phone=phone.strip(),
+            first_pregnancy=first_pregnancy,
+            lmp_date=lmp_date,
+            comorbidities=comorbidities,
+            create_date=create_date,
+            update_date=update_date,
         )
 
     @property

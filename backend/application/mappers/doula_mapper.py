@@ -4,11 +4,6 @@ from interface.api.schemas.doula_schema import DoulaRequest, DoulaSummary, Doula
 
 
 class DoulaMapper:
-
-    @staticmethod
-    def request_to_entity(request: DoulaRequest):
-        return Doula(name=request.name, email=request.email, phone=request.phone)
-
     @staticmethod
     def entity_to_summary(doula: Doula):
         return DoulaSummary(
@@ -18,14 +13,11 @@ class DoulaMapper:
         )
 
     @staticmethod
-    def entity_to_response(doula: Doula):
-        return DoulaResponse(
+    def model_to_summary(doula: DoulaModel):
+        return DoulaSummary(
             id=doula.id,
             name=doula.name,
-            phone=doula.phone,
-            email=doula.email,
-            create_date=doula.create_date,
-            update_date=doula.update_date,
+            email=doula.email
         )
 
     @staticmethod

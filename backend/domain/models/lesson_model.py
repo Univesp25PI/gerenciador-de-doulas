@@ -23,8 +23,8 @@ class LessonModel:
 
     pregnant: Optional["PregnantModel"] = None
 
-    created_at: Optional[datetime] = None
-    updated_at: Optional[datetime] = None
+    create_date: Optional[datetime] = None
+    update_date: Optional[datetime] = None
 
     @staticmethod
     def create(
@@ -43,6 +43,27 @@ class LessonModel:
             class_date=class_date,
         )
 
+    @staticmethod
+    def from_persistence(
+        id: int,
+        pregnant: PregnantModel,
+        pregnant_id: int,
+        class_number: int,
+        class_type: LessonTypeEnum,
+        class_date: datetime,
+        create_date: datetime,
+        update_date: datetime,
+    ) -> "LessonModel":
+        return LessonModel(
+            id=id,
+            pregnant=pregnant,
+            pregnant_id=pregnant_id,
+            class_number=class_number,
+            class_type=class_type,
+            class_date=class_date,
+            create_date=create_date,
+            update_date=update_date,
+        )
 def _validate_positive_id(v: int, name: str) -> None:
     if v is None or v <= 0:
         raise AppException(ExceptionEnum.INVALID_ATTRIBUTE, f"{name} must be positive")
