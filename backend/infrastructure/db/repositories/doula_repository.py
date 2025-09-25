@@ -39,3 +39,10 @@ class SqlAlchemyDoulaRepository(DoulaRepositoryPort):
         if not entity:
             raise AppException(ExceptionEnum.DOULA_NOT_FOUND, message=f"Doula with id={id} not found")
         return DoulaInfraMapper.entity_to_model(entity)
+
+    async def find_by_email(self, email: str) -> DoulaModel | None:
+        result = await self.db.execute(select(Doula).where(Doula.email == email))
+        entity = result.scalar_one_or_none()
+        if not entity:
+            raise AppException(ExceptionEnum.DOULA_NOT_FOUND, message=f"Doula with email={email} not found")
+        return DoulaInfraMapper.entity_to_model(entity)

@@ -1,4 +1,5 @@
 from fastapi import Depends
+from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import Annotated
 
@@ -25,3 +26,4 @@ def get_lesson_repository(db: DbDependency) -> LessonRepositoryPort:
 DoulaRepository = Annotated[DoulaRepositoryPort, Depends(get_doula_repository)]
 PregnantRepository = Annotated[PregnantRepositoryPort, Depends(get_pregnant_repository)]
 LessonRepository = Annotated[LessonRepositoryPort, Depends(get_lesson_repository)]
+LoginForm = Annotated[OAuth2PasswordRequestForm, Depends()]

@@ -62,3 +62,9 @@ class ExceptionEnum(Enum):
         "message": "The attribute is invalid",
         "status_code": status.HTTP_400_BAD_REQUEST,
     }
+    UNAUTHORIZED = {
+        "code": "DM0010",
+        "title": "UNAUTHORIZED",
+        "message": "Invalid credentials",
+        "status_code": status.HTTP_401_UNAUTHORIZED,
+    }
