@@ -28,8 +28,10 @@ class SqlAlchemyPregnantRepository(PregnantRepositoryPort):
 
         return PregnantInfraMapper.entity_to_model(entity, doula)
 
-    async def find_all(self) -> Sequence[PregnantModel]:
-        result = await self.db.execute(select(Pregnant))
+    async def find_all_by_doula_id(self, doula_id: int) -> Sequence[PregnantModel]:
+        result = await self.db.execute(
+            select(Pregnant).where(Pregnant.doula_id == doula_id)
+        )
         entities = result.scalars().all()
 
         models: list[PregnantModel] = []
@@ -40,11 +42,11 @@ class SqlAlchemyPregnantRepository(PregnantRepositoryPort):
 
         return models
 
-    async def find_by_id(self, id: int) -> PregnantModel | None:
-        result = await self.db.execute(select(Pregnant).where(Pregnant.id == id))
+    async def find_by_id(self, pregnant_id: int) -> PregnantModel | None:
+        result = await self.db.execute(select(Pregnant).where(Pregnant.id == pregnant_id))
         entity = result.scalar_one_or_none()
         if not entity:
-            raise AppException(ExceptionEnum.PREGNANT_NOT_FOUND, message=f"Pregnant with id={id} not found")
+            raise AppException(ExceptionEnum.PREGNANT_NOT_FOUND, message=f"Pregnant with id={pregnant_id} not found")
 
         doula = DoulaInfraMapper.entity_to_model(entity.doula)
 

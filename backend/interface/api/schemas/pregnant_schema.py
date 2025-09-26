@@ -38,6 +38,7 @@ class PregnantResponse(BaseModel):
 
 class PregnantSummary(BaseModel):
     id: int
+    doula_id: int
     name: str
     email: str
     phone: str

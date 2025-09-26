@@ -22,6 +22,7 @@ class LessonInfraMapper:
             id=entity.id,
             pregnant=pregnant,
             pregnant_id=entity.pregnant_id,
+            doula_id=pregnant.doula_id,
             class_number=entity.class_number,
             class_type=LessonTypeEnum.from_name(entity.class_type),
             class_date=entity.class_date,

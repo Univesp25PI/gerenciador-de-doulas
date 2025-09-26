@@ -6,7 +6,7 @@ class DoulaInfraMapper:
 
     @staticmethod
     def model_to_entity(model: DoulaModel):
-        return Doula(name=model.name, email=model.email, phone=model.phone)
+        return Doula(name=model.name, email=model.email, phone=model.phone, password_hash=model.password_hash)
 
     @staticmethod
     def entity_to_model(entity: Doula):
@@ -15,6 +15,7 @@ class DoulaInfraMapper:
             name=entity.name,
             email=entity.email,
             phone=entity.phone,
+            password_hash=entity.password_hash,
             create_date=entity.create_date,
             update_date=entity.update_date,
         )

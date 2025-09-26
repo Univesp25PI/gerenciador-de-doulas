@@ -6,6 +6,7 @@ class DoulaRequest(BaseModel):
     name: str
     email: str
     phone: str
+    password: str
 
 
 class DoulaResponse(BaseModel):
