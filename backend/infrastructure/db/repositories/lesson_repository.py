@@ -3,11 +3,12 @@ from typing import Sequence
 from sqlalchemy import select
 
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import joinedload
 
 from domain.exceptions.domain_exception import AppException
 from domain.exceptions.exception_enum import ExceptionEnum
 from domain.models.lesson_model import LessonModel
-from infrastructure.db.entities import Lesson
+from infrastructure.db.entities import Lesson, Pregnant
 from domain.ports.lesson_repository_port import LessonRepositoryPort
 from infrastructure.mappers.doula_infra_mapper import DoulaInfraMapper
 from infrastructure.mappers.lesson_infra_mapper import LessonInfraMapper
@@ -30,8 +31,16 @@ class SqlAlchemyLessonRepository(LessonRepositoryPort):
 
         return LessonInfraMapper.entity_to_model(entity, pregnant)
 
-    async def find_all(self) -> Sequence[LessonModel]:
-        result = await self.db.execute(select(Lesson))
+    async def find_all(self, doula_id: int) -> Sequence[LessonModel]:
+        stmt = (
+            select(Lesson)
+            .join(Lesson.pregnant)
+            .options(joinedload(Lesson.pregnant))
+            .where(Pregnant.doula_id == doula_id)
+        )
+
+        result = await self.db.execute(stmt)
+
         entities = result.scalars().all()
 
         models: list[LessonModel] = []

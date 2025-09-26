@@ -16,8 +16,8 @@ class LessonService:
 
         return  LessonMapper.model_to_response(model, pregnant_summary)
 
-    async def get_all_lesson(self):
-        entities = await self.repository.find_all()
+    async def get_all_lesson(self, doula_id: int):
+        entities = await self.repository.find_all(doula_id)
         responses: list[LessonResponse] = []
         for entity in entities:
             pregnant_summary = PregnantMapper.model_to_summary(entity.pregnant)
