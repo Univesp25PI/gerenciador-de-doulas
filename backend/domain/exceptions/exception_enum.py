@@ -68,3 +68,9 @@ class ExceptionEnum(Enum):
         "message": "Invalid credentials",
         "status_code": status.HTTP_401_UNAUTHORIZED,
     }
+    INVALID_TOKEN = {
+        "code": "DM0012",
+        "title": "INVALID_TOKEN",
+        "message": "Invalid token",
+        "status_code": status.HTTP_401_UNAUTHORIZED,
+    }
