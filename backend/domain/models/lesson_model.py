@@ -22,6 +22,7 @@ class LessonModel:
     class_date: datetime
 
     pregnant: Optional["PregnantModel"] = None
+    doula_id: Optional[int] = None
 
     create_date: Optional[datetime] = None
     update_date: Optional[datetime] = None
@@ -48,6 +49,7 @@ class LessonModel:
         id: int,
         pregnant: PregnantModel,
         pregnant_id: int,
+        doula_id: int,
         class_number: int,
         class_type: LessonTypeEnum,
         class_date: datetime,
@@ -58,6 +60,7 @@ class LessonModel:
             id=id,
             pregnant=pregnant,
             pregnant_id=pregnant_id,
+            doula_id=doula_id,
             class_number=class_number,
             class_type=class_type,
             class_date=class_date,

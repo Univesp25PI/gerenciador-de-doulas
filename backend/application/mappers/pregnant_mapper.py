@@ -90,6 +90,7 @@ class PregnantMapper:
     def model_to_summary(pregnant: PregnantModel):
         return PregnantSummary(
             id=pregnant.id,
+            doula_id=pregnant.doula_id,
             name=pregnant.name,
             email=pregnant.email,
             phone=pregnant.phone,

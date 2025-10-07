@@ -14,15 +14,16 @@ class DoulaModel:
     name: str
     email: str
     phone: str
+    password_hash: str
     create_date: Optional[datetime] = None
     update_date: Optional[datetime] = None
 
     @staticmethod
-    def create(name: str, email: str, phone: str) -> "DoulaModel":
+    def create(name: str, email: str, phone: str, password_hash:str) -> "DoulaModel":
         _validate_name(name)
         _validate_email(email)
         _validate_phone(phone)
-        return DoulaModel(id=None, name=name.strip(), email=email.strip().lower(), phone=phone.strip())
+        return DoulaModel(id=None, name=name.strip(), email=email.strip().lower(), phone=phone.strip(), password_hash=password_hash)
 
     @staticmethod
     def from_persistence(
@@ -30,6 +31,7 @@ class DoulaModel:
             name: str,
             email: str,
             phone: str,
+            password_hash: str,
             create_date: datetime,
             update_date: datetime,
     ) -> "DoulaModel":
@@ -38,6 +40,7 @@ class DoulaModel:
             name=name.strip(),
             email=email.strip().lower(),
             phone=phone.strip(),
+            password_hash=password_hash,
             create_date=create_date,
             update_date=update_date,
         )

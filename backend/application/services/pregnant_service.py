@@ -16,8 +16,8 @@ class PregnantService:
 
         return  PregnantMapper.model_to_response(model, doula_summary)
 
-    async def get_all_pregnant(self):
-        models = await self.repository.find_all()
+    async def get_all_pregnant(self, doula_id: int):
+        models = await self.repository.find_all_by_doula_id(doula_id)
         responses: list[PregnantResponse] = []
         for model in models:
             doula_summary = DoulaMapper.model_to_summary(model.doula)
@@ -26,8 +26,8 @@ class PregnantService:
 
         return responses
 
-    async def get_pregnant_by_id(self, id: int):
-        model = await self.repository.find_by_id(id)
+    async def get_pregnant_by_id(self, pregnant_id: int):
+        model = await self.repository.find_by_id(pregnant_id)
 
         doula_summary = DoulaMapper.model_to_summary(model.doula)
 

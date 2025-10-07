@@ -1,5 +1,6 @@
 from domain.models.doula_model import DoulaModel
 from infrastructure.db.entities.doula import Doula
+from infrastructure.security.hashing import hash_password
 from interface.api.schemas.doula_schema import DoulaRequest, DoulaSummary, DoulaResponse
 
 
@@ -26,6 +27,7 @@ class DoulaMapper:
             name=request.name,
             email=request.email,
             phone=request.phone,
+            password_hash=hash_password(request.password),
         )
 
     @staticmethod
