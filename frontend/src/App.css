@@ -36,3 +36,89 @@
     transform: rotate(360deg);
   }
 }
+
+/* Quando high-contrast está ativo, sobrescreve automaticamente */
+.high-contrast {
+  /* Backgrounds */
+  --bg-gradient: #000000;
+  --bg-card: #1a1a1a;
+  --bg-input: #2d2d2d;
+  
+  /* Textos */
+  --text-primary: #ffffff;
+  --text-secondary: #e0e0e0;
+  
+  /* Bordas */
+  --border-color: #ffffff;
+}
+
+.high-contrast .bg-gradient-to-br {
+  background: var(--bg-gradient) !important;
+  background-image: none !important;
+}
+
+.high-contrast .bg-white {
+  background: var(--bg-card) !important;
+  border: 2px solid var(--border-color) !important;
+}
+
+.high-contrast .text-purple-700,
+.high-contrast .text-purple-800,
+.high-contrast .text-gray-800 {
+  color: var(--text-primary) !important;
+}
+
+.high-contrast .text-gray-600,
+.high-contrast .text-gray-500 {
+  color: var(--text-secondary) !important;
+}
+
+.high-contrast .bg-purple-600,
+.high-contrast .bg-purple-700 {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+.high-contrast .bg-purple-600:hover,
+.high-contrast .bg-purple-700:hover {
+  background: #e0e0e0 !important;
+}
+
+.high-contrast .text-purple-600 {
+  color: #6fc3ff !important;
+}
+
+.high-contrast .border {
+  border-color: var(--border-color) !important;
+}
+
+.high-contrast .shadow,
+.high-contrast .shadow-md,
+.high-contrast .shadow-xl {
+  box-shadow: 0 0 0 2px #ffffff !important;
+}
+
+/* Inputs e forms */
+.high-contrast input,
+.high-contrast textarea,
+.high-contrast select {
+  background: var(--bg-input) !important;
+  color: var(--text-primary) !important;
+  border: 2px solid var(--border-color) !important;
+}
+
+/* Links */
+.high-contrast a {
+  color: #6fc3ff !important;
+  text-decoration: underline;
+}
+
+/* Backgrounds de cor */
+.high-contrast .bg-red-100 {
+  background: #8b0000 !important;
+}
+
+.high-contrast .text-red-600 {
+  color: #ff6b6b !important;
+}

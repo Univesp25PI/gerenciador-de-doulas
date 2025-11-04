@@ -1,10 +1,7 @@
 from application.mappers.lesson_mapper import LessonMapper
 from application.mappers.pregnant_mapper import PregnantMapper
 from interface.api.schemas.lesson_schema import LessonRequest, LessonResponse
-from domain.exceptions.domain_exception import AppException
-from domain.exceptions.exception_enum import ExceptionEnum
 from domain.ports.lesson_repository_port import LessonRepositoryPort
-
 
 class LessonService:
     def __init__(self, repository: LessonRepositoryPort):

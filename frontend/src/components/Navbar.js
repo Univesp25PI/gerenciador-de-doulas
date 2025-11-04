@@ -1,8 +1,15 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import { useAuth } from "../contexts/AuthContext";
+import logo from "../assets/logo.png";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const { doula, logout } = useAuth(); // pega o estado do AuthContext
+
+  const isAuthenticated = !!doula;
 
   const links = [
     { to: "/gestantes", label: "Gestantes" },
@@ -10,31 +17,89 @@ export default function Navbar() {
     { to: "/about", label: "Sobre Mim" },
   ];
 
+  const handleLogoClick = () => {
+    navigate(isAuthenticated ? "/home" : "/");
+  };
+
+  const handleLogout = () => {
+    logout(); // usa o logout do AuthContext
+    navigate("/");
+  };
+
   return (
-    <nav className="bg-purple-700 text-white shadow">
+    <nav className="bg-purple-700 text-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-        <Link to="/" className="text-2xl font-bold text-white">Gestante+</Link>
+        <button
+          onClick={handleLogoClick}
+          className="flex items-center gap-2 text-white font-bold text-xl hover:text-purple-300 transition"
+        >
+          <img src={logo} alt="Logo" className="h-8 w-8 rounded-full" />
+          <span className="hidden sm:inline">Gestante+</span>
+        </button>
 
         <button
-          className="sm:hidden text-white focus:outline-none"
+          className="sm:hidden text-white text-2xl focus:outline-none"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           ☰
         </button>
 
-        <div className={`sm:flex gap-6 ${menuOpen ? "block mt-4" : "hidden"} sm:mt-0 sm:block`}>
+        {/* Menu principal em telas grandes */}
+        <div className="hidden sm:flex items-center gap-6">
           {links.map((link) => (
             <Link
               key={link.to}
               to={link.to}
-              className="block sm:inline-block py-2 sm:py-0 hover:text-purple-300 transition"
-              onClick={() => setMenuOpen(false)}
+              className="hover:text-purple-300 transition"
             >
               {link.label}
             </Link>
           ))}
+          {isAuthenticated && (
+            <button
+              onClick={handleLogout}
+              className="bg-white text-purple-700 font-medium px-3 py-1 rounded hover:bg-purple-100 transition"
+            >
+              Sair
+            </button>
+          )}
         </div>
       </div>
+
+      {/* Menu mobile */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="sm:hidden bg-purple-700 px-4 pb-4 flex flex-col gap-3"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            {links.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                onClick={() => setMenuOpen(false)}
+                className="text-white hover:text-purple-200 transition"
+              >
+                {link.label}
+              </Link>
+            ))}
+            {isAuthenticated && (
+              <button
+                onClick={() => {
+                  handleLogout();
+                  setMenuOpen(false);
+                }}
+                className="text-white hover:text-red-200 transition text-left"
+              >
+                Sair
+              </button>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

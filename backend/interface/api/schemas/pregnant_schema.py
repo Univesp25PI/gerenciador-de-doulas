@@ -1,7 +1,7 @@
 from datetime import datetime, date
 from typing import List
 
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 
 from interface.api.schemas.doula_schema import DoulaSummary
 from domain.enums.comorbidities_enum import ComorbiditiesEnum
@@ -11,7 +11,7 @@ class PregnantRequest(BaseModel):
     id_doula: int
     name: str
     age: int
-    email: str
+    email: EmailStr
     phone: str
     first_pregnancy: bool
     lmp_date: datetime
@@ -22,7 +22,7 @@ class PregnantResponse(BaseModel):
     doula: DoulaSummary
     name: str
     age: int
-    email: str
+    email: EmailStr
     phone: str
     first_pregnancy: bool
     lmp_date: date
@@ -40,7 +40,7 @@ class PregnantSummary(BaseModel):
     id: int
     doula_id: int
     name: str
-    email: str
+    email: EmailStr
     phone: str
     first_pregnancy: bool
     lmp_date: date

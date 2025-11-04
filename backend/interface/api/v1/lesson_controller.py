@@ -13,7 +13,6 @@ router = APIRouter()
 async def create_lesson(payload: LessonRequest, repository: LessonRepository, token_data: TokenData):
     service = LessonService(repository)
     lesson = await service.create_lesson(payload)
-    validate_doula(lesson.pregnant.doula.id, token_data.id)
 
     return ok_item(lesson)
 

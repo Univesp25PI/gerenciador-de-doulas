@@ -1,10 +1,10 @@
 from datetime import datetime
 
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 
 class DoulaRequest(BaseModel):
     name: str
-    email: str
+    email: EmailStr
     phone: str
     password: str
 
@@ -24,6 +24,6 @@ class DoulaResponse(BaseModel):
 class DoulaSummary(BaseModel):
     id: int
     name: str
-    email: str
+    email: EmailStr
 
     model_config = {"from_attributes": True}

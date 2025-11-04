@@ -10,7 +10,7 @@ export const useAulas = () => {
   useEffect(() => {
     const loadAulas = async () => {
       try {
-        const result = await AulaService.getAllByDoula();
+        const result = await AulaService.getAll();
         setAulas(result);
       } catch (err) {
         console.error("Erro ao buscar aulas:", err);

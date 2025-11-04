@@ -16,6 +16,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    container_name: backend-doula
     ports:
       - "8080:8080"
     environment:
@@ -25,18 +26,35 @@ services:
       - DB_NAME=doula_manager
       - DB_USER=postgres
       - DB_PASSWORD=postgres
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@postgres:5432/doula_manager
+      - JWT_SECRET_KEY=supersecreta-chave-aqui
     depends_on:
       - postgres
+    volumes:
+      - ./backend:/backend
+    restart: always
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: frontend-doula
+    ports:
+      - "3000:3000"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+      - REACT_APP_API_URL=http://localhost:8080 
+      - REACT_APP_USE_MOCK=false
+    volumes:
+      - ./frontend/src:/app/src  # Mount source code
+      - ./frontend/public:/app/public  # Mount public folder
+      - /app/node_modules  # Preserve node_modules in container
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+    restart: always
+    
 volumes:
   postgres_data:
-
-  # Futuro serviço do frontend (comentado por enquanto)
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "8081:8081"
-  #   depends_on:
-  #     - backend

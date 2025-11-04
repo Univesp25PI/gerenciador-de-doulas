@@ -22,3 +22,4 @@ class AuthService:
             })
 
         return AuthMapper.token_to_response(token)
+    

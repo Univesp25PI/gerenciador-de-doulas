@@ -1,9 +1,6 @@
 from application.mappers.doula_mapper import DoulaMapper
 from interface.api.schemas.doula_schema import DoulaRequest, DoulaResponse
-from domain.exceptions.domain_exception import AppException
-from domain.exceptions.exception_enum import ExceptionEnum
 from domain.ports.doula_repository_port import DoulaRepositoryPort
-
 
 class DoulaService:
 

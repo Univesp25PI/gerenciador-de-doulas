@@ -1,10 +1,7 @@
 from application.mappers.doula_mapper import DoulaMapper
 from application.mappers.pregnant_mapper import PregnantMapper
 from interface.api.schemas.pregnant_schema import PregnantRequest, PregnantResponse
-from domain.exceptions.domain_exception import AppException
-from domain.exceptions.exception_enum import ExceptionEnum
 from domain.ports.pregnant_repository_port import PregnantRepositoryPort
-
 
 class PregnantService:
     def __init__(self, repository: PregnantRepositoryPort):
