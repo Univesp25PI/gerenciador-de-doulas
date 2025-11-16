@@ -5,14 +5,16 @@ export function useDoula() {
   const [loading, setLoading] = useState(false);
   const [erro, setErro] = useState("");
 
-  const cadastrarDoula = async (dados, onSuccess) => {
+  const cadastrarDoula = async (dados) => {
     setLoading(true);
     setErro("");
     try {
       const novaDoula = await DoulaService.create(dados);
-      onSuccess(novaDoula);
+      return novaDoula;
     } catch (err) {
-      setErro("Erro ao cadastrar doula.");
+      const mensagemErro = err.response?.data?.message || "Erro ao cadastrar doula.";
+      setErro(mensagemErro);
+      throw err;
     } finally {
       setLoading(false);
     }

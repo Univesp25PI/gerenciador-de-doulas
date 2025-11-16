@@ -5,7 +5,7 @@ const useMock = process.env.REACT_APP_USE_MOCK === "false";
 
 export const DoulaService = {
   create: async (dados) => {
-    if (useMock) {
+    if (!useMock) {
       return new Promise((resolve) =>
         setTimeout(() => resolve({ id: 1, ...dados }), 300)
       );

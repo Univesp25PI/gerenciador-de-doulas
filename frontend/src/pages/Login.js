@@ -45,7 +45,7 @@ export default function Login() {
           </p>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-5" noValidate>
+        <form onSubmit={handleLogin} className="space-y-5" autoComplete="off" noValidate>
           {error && (
             <div
               className="bg-red-50 border border-red-300 text-red-800 px-4 py-3 rounded"

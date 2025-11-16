@@ -21,16 +21,32 @@ export default function CadastroDoula() {
     e.preventDefault();
     setLoginError("");
 
-    cadastrarDoula(form, async () => {
+    // Validação básica
+    if (!form.name || !form.email || !form.phone || !form.password) {
+      setLoginError("Por favor, preencha todos os campos.");
+      return;
+    }
+
+    try {
+      // Aguarda o cadastro ser concluído
+      const resultado = await cadastrarDoula(form);
+      console.log("Cadastro realizado:", resultado);
+      
+      // Aguarda um pequeno delay para garantir que o banco commitou
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Se chegou aqui, cadastro foi bem-sucedido
       try {
         await login(form.email, form.password);
         navigate("/home");
-      } catch (error) {
-        console.error("Erro ao fazer login após cadastro:", error);
-        setLoginError("Cadastro realizado! Redirecionando para o login...");
+      } catch (loginErr) {
+        console.error("Erro ao fazer login após cadastro:", loginErr);
+        setLoginError("Cadastro realizado com sucesso! Faça login para continuar...");
         setTimeout(() => navigate("/login"), 2000);
       }
-    });
+    } catch (cadastroErr) {
+      console.error("Erro ao cadastrar:", cadastroErr);
+    }
   };
 
   return (
@@ -45,7 +61,7 @@ export default function CadastroDoula() {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+        <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off" noValidate>
           <input
             type="text"
             name="name"
@@ -74,7 +90,6 @@ export default function CadastroDoula() {
             className="w-full border border-gray-400 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700"
           />
           
-          {/* Campo de senha com botão acessível */}
           <div className="relative">
             <input
               id="password"
