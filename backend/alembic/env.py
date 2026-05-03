@@ -14,7 +14,6 @@ if config.config_file_name is not None:
 
 # Define a URL síncrona vinda do settings
 config.set_main_option("sqlalchemy.url", settings.sqlalchemy_sync_url)
-print("SQLAlchemy URL usada pelo Alembic:", config.get_main_option("sqlalchemy.url"))
 
 # Importa metadata dos models
 target_metadata = Base.metadata

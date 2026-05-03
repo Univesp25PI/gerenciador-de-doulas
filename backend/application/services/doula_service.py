@@ -2,7 +2,7 @@ import logging
 
 
 from application.mappers.doula_mapper import DoulaMapper
-from domain.utils.log_sanitizer import LogSanitizer
+from infrastructure.logging.log_sanitizer import LogSanitizer
 from interface.api.schemas.doula_schema import DoulaRequest, DoulaResponse
 from domain.ports.doula_repository_port import DoulaRepositoryPort
 
@@ -32,8 +32,8 @@ class DoulaService:
             responses.append(response)
 
         logger.info(
-            "Doulas recovered %s",
-            LogSanitizer.sanitize(responses),
+        "Doulas recovered total=%s",
+        len(responses),
         )
 
         return responses
@@ -42,7 +42,6 @@ class DoulaService:
         doula = await self.repository.find_by_id(id)
         response = DoulaMapper.model_to_response(doula)
 
-        print("TESTE")
         logger.info(
             "Doula recovered %s",
             LogSanitizer.sanitize(response),

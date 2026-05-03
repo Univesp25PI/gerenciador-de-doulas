@@ -1,7 +1,7 @@
 from typing import Any
 from pydantic import Field
 
-from domain.enums.logmask import LogMask
+from infrastructure.logging.logmask import LogMask
 
 LOG_META_KEY = "log_policy"
 

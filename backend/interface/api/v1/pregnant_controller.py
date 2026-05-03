@@ -9,7 +9,7 @@ from interface.api.http_helper import ok_item, ok_list
 
 router = APIRouter()
 
-@router.post("/", response_model=SingleEnvelope[PregnantResponse], status_code=201)
+@router.post("", response_model=SingleEnvelope[PregnantResponse], status_code=201)
 async def create_pregnant(payload: PregnantRequest, repository: PregnantRepository, token_data: TokenData):
     validate_doula(payload.id_doula, token_data.id)
     service = PregnantService(repository)
@@ -17,7 +17,7 @@ async def create_pregnant(payload: PregnantRequest, repository: PregnantReposito
 
     return ok_item(pregnant)
 
-@router.get("/", response_model=ListEnvelope[PregnantResponse], status_code=200)
+@router.get("", response_model=ListEnvelope[PregnantResponse], status_code=200)
 async def get_all_pregnant(repository: PregnantRepository, token_data: TokenData):
     service = PregnantService(repository)
     pregnant_list = await service.get_all_pregnant(token_data.id)
@@ -28,5 +28,5 @@ async def get_all_pregnant(repository: PregnantRepository, token_data: TokenData
 async def get_pregnant_by_id(id: int, repository: PregnantRepository, token_data: TokenData):
     service = PregnantService(repository)
     pregnant = await service.get_pregnant_by_id(id)
-    validate_doula(pregnant.doula.id, token_data.id)
+    validate_doula(pregnant.doula_id, token_data.id)
     return ok_item(pregnant)

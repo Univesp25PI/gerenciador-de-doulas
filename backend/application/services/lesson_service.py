@@ -1,10 +1,12 @@
+import logging
+
 from application.mappers.lesson_mapper import LessonMapper
 from application.mappers.pregnant_mapper import PregnantMapper
+from infrastructure.logging.log_sanitizer import LogSanitizer
 from interface.api.schemas.lesson_schema import LessonRequest, LessonResponse
-from domain.exceptions.domain_exception import AppException
-from domain.exceptions.exception_enum import ExceptionEnum
 from domain.ports.lesson_repository_port import LessonRepositoryPort
 
+logger = logging.getLogger(__name__)
 
 class LessonService:
     def __init__(self, repository: LessonRepositoryPort):
@@ -13,8 +15,14 @@ class LessonService:
     async def create_lesson(self, payload: LessonRequest):
         model = await self.repository.create(LessonMapper.request_to_model(payload))
         pregnant_summary = PregnantMapper.model_to_summary(model.pregnant)
+        response = LessonMapper.model_to_response(model, pregnant_summary)
 
-        return  LessonMapper.model_to_response(model, pregnant_summary)
+        logger.info(
+            "Lesson created %s",
+            LogSanitizer.sanitize(response),
+        )
+
+        return response
 
     async def get_all_lesson(self, doula_id: int):
         entities = await self.repository.find_all(doula_id)
@@ -24,10 +32,22 @@ class LessonService:
             response = LessonMapper.model_to_response(entity, pregnant_summary)
             responses.append(response)
 
+        logger.info(
+            "Lessons recovered doula_id=%s total=%s",
+            doula_id,
+            len(responses),
+        )
+
         return responses
 
     async def get_lesson_by_id(self, id: int):
         entity = await self.repository.find_by_id(id)
 
         pregnant_summary = PregnantMapper.model_to_summary(entity.pregnant)
-        return LessonMapper.model_to_response(entity, pregnant_summary)
+        response = LessonMapper.model_to_response(entity, pregnant_summary)
+        logger.info(
+            "Lesson recovered %s",
+            LogSanitizer.sanitize(response),
+        )
+
+        return response

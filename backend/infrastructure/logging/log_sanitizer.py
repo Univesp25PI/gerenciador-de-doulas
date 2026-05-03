@@ -5,9 +5,27 @@ from typing import Any
 
 from pydantic import BaseModel
 
-from domain.enums.logmask import LogMask
-from domain.utils.logging_helper import LOG_META_KEY
+from infrastructure.logging.logmask import LogMask
+from infrastructure.logging.logging_helper import LOG_META_KEY
 
+SENSITIVE_KEYS = {
+    "password",
+    "password_hash",
+    "access_token",
+    "refresh_token",
+    "token",
+    "authorization",
+    "jwt",
+    "secret",
+    "api_key",
+}
+
+KEY_MASKS = {
+    "email": LogMask.EMAIL,
+    "phone": LogMask.PHONE,
+    "cpf": LogMask.CPF,
+    "name": LogMask.NAME,
+}
 
 class LogSanitizer:
 
@@ -23,12 +41,22 @@ class LogSanitizer:
             return [LogSanitizer.sanitize(item) for item in obj]
 
         if isinstance(obj, dict):
-            # Cuidado: dict não possui metadados.
-            # Aqui você pode optar por não logar dicts arbitrários.
-            return {
-                key: LogSanitizer.sanitize(value)
-                for key, value in obj.items()
-            }
+            result = {}
+
+            for key, value in obj.items():
+                normalized_key = str(key).lower()
+
+                if normalized_key in SENSITIVE_KEYS:
+                    result[key] = "***"
+                    continue
+
+                if normalized_key in KEY_MASKS:
+                    result[key] = LogSanitizer._apply_mask(value, KEY_MASKS[normalized_key])
+                    continue
+
+                result[key] = LogSanitizer.sanitize(value)
+
+            return result
 
         if isinstance(obj, datetime | date):
             return obj.isoformat()
