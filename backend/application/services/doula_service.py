@@ -1,9 +1,12 @@
+import logging
+
+
 from application.mappers.doula_mapper import DoulaMapper
+from infrastructure.logging.log_sanitizer import LogSanitizer
 from interface.api.schemas.doula_schema import DoulaRequest, DoulaResponse
-from domain.exceptions.domain_exception import AppException
-from domain.exceptions.exception_enum import ExceptionEnum
 from domain.ports.doula_repository_port import DoulaRepositoryPort
 
+logger = logging.getLogger(__name__)
 
 class DoulaService:
 
@@ -13,6 +16,12 @@ class DoulaService:
     async def create_doula(self, payload: DoulaRequest):
         entity = await self.repository.create(DoulaMapper.request_to_model(payload))
         response = DoulaMapper.model_to_response(entity)
+
+        logger.info(
+            "Doula created %s",
+            LogSanitizer.sanitize(response),
+        )
+
         return  response
 
     async def get_all_doula(self):
@@ -21,9 +30,21 @@ class DoulaService:
         for model in models:
             response = DoulaMapper.model_to_response(model)
             responses.append(response)
+
+        logger.info(
+        "Doulas recovered total=%s",
+        len(responses),
+        )
+
         return responses
 
     async def get_doula_by_id(self, id: int):
         doula = await self.repository.find_by_id(id)
+        response = DoulaMapper.model_to_response(doula)
 
-        return DoulaMapper.model_to_response(doula)
+        logger.info(
+            "Doula recovered %s",
+            LogSanitizer.sanitize(response),
+        )
+
+        return response

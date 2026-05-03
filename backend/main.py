@@ -1,6 +1,17 @@
+import logging
+
 from fastapi import FastAPI
+
+from infrastructure.logging.logging_config import configure_logging
 from interface.api.v1 import doula_controller, pregnant_controller, lesson_controller, auth_controller
 from interface.api.handlers.registry_handler import register_exception_handlers
+
+configure_logging()
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s [%(name)s] %(message)s",
+)
 
 app = FastAPI()
 

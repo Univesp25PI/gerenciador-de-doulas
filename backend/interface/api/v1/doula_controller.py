@@ -8,14 +8,14 @@ from interface.api.http_helper import ok_item, ok_list
 
 router = APIRouter()
 
-@router.post("/", response_model=SingleEnvelope[DoulaResponse], status_code=201)
+@router.post("", response_model=SingleEnvelope[DoulaResponse], status_code=201)
 async def create_doula(payload: DoulaRequest, repository: DoulaRepository):
     service = DoulaService(repository)
     doula = await service.create_doula(payload)
 
     return ok_item(doula)
 
-@router.get("/", response_model=ListEnvelope[DoulaResponse], status_code=200)
+@router.get("", response_model=ListEnvelope[DoulaResponse], status_code=200)
 async def get_all_doula(repository: DoulaRepository):
     service = DoulaService(repository)
     doula_list = await service.get_all_doula()

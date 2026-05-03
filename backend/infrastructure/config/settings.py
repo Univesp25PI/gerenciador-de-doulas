@@ -8,6 +8,9 @@ class Settings(BaseSettings):
 
     database_url: str = Field(..., alias="DATABASE_URL")
 
+    log_level: str = Field(default="INFO", alias="LOG_LEVEL")
+    sql_echo: bool = Field(default=False, alias="SQL_ECHO")
+
     @property
     def sqlalchemy_sync_url(self) -> str:
         return self.database_url.replace("+asyncpg", "+psycopg2")

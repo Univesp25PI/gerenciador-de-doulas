@@ -9,15 +9,15 @@ from interface.api.http_helper import ok_item, ok_list
 
 router = APIRouter()
 
-@router.post("/", response_model=SingleEnvelope[LessonResponse], status_code=201)
+@router.post("", response_model=SingleEnvelope[LessonResponse], status_code=201)
 async def create_lesson(payload: LessonRequest, repository: LessonRepository, token_data: TokenData):
     service = LessonService(repository)
     lesson = await service.create_lesson(payload)
-    validate_doula(lesson.pregnant.doula.id, token_data.id)
+    validate_doula(lesson.pregnant.doula_id, token_data.id)
 
     return ok_item(lesson)
 
-@router.get("/", response_model=ListEnvelope[LessonResponse], status_code=200)
+@router.get("", response_model=ListEnvelope[LessonResponse], status_code=200)
 async def get_all_lesson(repository: LessonRepository, token_data: TokenData):
     service = LessonService(repository)
 
