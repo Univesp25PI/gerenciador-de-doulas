@@ -7,6 +7,7 @@ export default function Navbar() {
   const links = [
     { to: "/gestantes", label: "Gestantes" },
     { to: "/aulas", label: "Aulas" },
+    { to: "/agenda", label: "Agenda" },
     { to: "/about", label: "Sobre Mim" },
   ];
 

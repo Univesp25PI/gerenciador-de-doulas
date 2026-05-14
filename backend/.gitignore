@@ -71,6 +71,8 @@ Thumbs.db
 .env.*
 !.env.example
 !.env.template
+credentials.json
+token.json
 
 # ----------------------------
 # Bancos locais (dev)

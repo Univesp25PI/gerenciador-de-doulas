@@ -1,0 +1,30 @@
+[
+    {
+        "id": "1abc2def3ghi4jkl",
+        "summary": "Aula 1 - Preparação",
+        "description": "Primeira aula com a gestante Maria",
+        "start": {
+            "dateTime": "2026-06-15T10:00:00-03:00",
+            "timeZone": "America/Sao_Paulo"
+        },
+        "end": {
+            "dateTime": "2026-06-15T11:00:00-03:00",
+            "timeZone": "America/Sao_Paulo"
+        },
+        "status": "confirmed"
+    },
+    {
+        "id": "5mno6pqr7stu8vwx",
+        "summary": "Aula 2 - Plano de Parto",
+        "description": "Discussão do plano de parto com a gestante Ana",
+        "start": {
+            "dateTime": "2026-06-16T14:30:00-03:00",
+            "timeZone": "America/Sao_Paulo"
+        },
+        "end": {
+            "dateTime": "2026-06-16T15:30:00-03:00",
+            "timeZone": "America/Sao_Paulo"
+        },
+        "status": "confirmed"
+    }
+]

@@ -95,9 +95,16 @@ export default function AulasList() {
 
 function formatTipo(tipo) {
   const map = {
-    PreNatal: "Pré-natal",
-    Amamentacao: "Amamentação",
-    Parto: "Plano de Parto",
+    OBSTETRIC_INTERVENTIONS: "Intercorrências Obstétricas",
+    BIRTH_PHYSIOLOGY: "Pré-natal",
+    NEWBORN_RECEPTION: "Recepção do Recém-nascido",
+    PREGNANCY_OVERVIEW: "Visão Geral da Gestação",
+    CESAREAN_OVERVIEW: "Visão Geral da Cesárea",
+    BREASTFEEDING_AND_PUERPERIUM: "Amamentação e Puerpério",
+    NEST_PREPARATION: "Preparação do Ninho",
+    PAIN_RELIEF_METHODS: "Amamentação",
+    PAIN_MANAGEMENT: "Plano de Parto",
+    AulaTypeEnum: "Aula Planejada"
   };
   return map[tipo] || tipo;
 }

@@ -1,0 +1,15 @@
+{
+    "id": "9yz0abcd1efg2hij",
+    "summary": "Nova Aula de Preparação",
+    "description": "Sessão de exercícios e respiração",
+    "start": {
+        "dateTime": "2026-06-20T09:00:00-03:00",
+        "timeZone": "America/Sao_Paulo"
+    },
+    "end": {
+        "dateTime": "2026-06-20T10:00:00-03:00",
+        "timeZone": "America/Sao_Paulo"
+    },
+    "status": "confirmed",
+    "htmlLink": "https://www.google.com/calendar/event?eid=..."
+}

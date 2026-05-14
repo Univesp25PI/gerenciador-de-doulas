@@ -11,6 +11,7 @@ services:
       POSTGRES_PASSWORD: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./postgres_initialize_schema.sql:/docker-entrypoint-initdb.d/init.sql
 
   backend:
     build:
@@ -19,24 +20,21 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - DB_NAME=doula_manager
-      - DB_USER=postgres
-      - DB_PASSWORD=postgres
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@postgres:5432/doula_manager
+      - JWT_SECRET_KEY=change_this_to_a_secure_secret_in_production
+      - JWT_ALGORITHM=HS256
+      - JWT_EXPIRES_MINUTES=60
     depends_on:
       - postgres
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8081:80"
+    depends_on:
+      - backend
+
 volumes:
   postgres_data:
-
-  # Futuro serviço do frontend (comentado por enquanto)
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "8081:8081"
-  #   depends_on:
-  #     - backend

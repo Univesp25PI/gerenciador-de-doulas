@@ -92,5 +92,16 @@ export default function GestantesList() {
 
 function formatDate(dateStr) {
   if (!dateStr) return "-";
-  return new Date(dateStr).toLocaleDateString("pt-BR");
+  
+  // If the date is already in DD/MM/YYYY or similar format, return it as is
+  if (dateStr.includes("/") && dateStr.split("/")[0].length <= 2) {
+    return dateStr;
+  }
+
+  const date = new Date(dateStr);
+  if (!isNaN(date.getTime())) {
+    return date.toLocaleDateString("pt-BR");
+  }
+
+  return dateStr;
 }

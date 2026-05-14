@@ -11,6 +11,7 @@ import NovaAula from './pages/Aulas/NovaAula';  // Import the Doulas List page
 import GestantesList from "./pages/Gestantes/GestantesList";
 import AulasList from "./pages/Aulas/AulasList";
 import AulaDetail from "./pages/Aulas/AulaDetail";
+import CalendarPage from "./pages/Calendar/CalendarPage";
 
 function App() {
 return (
@@ -27,6 +28,7 @@ return (
     <Route path="/gestantes" element={<GestantesList />} />
     <Route path="/aulas" element={<AulasList />} />
     <Route path="/aulas/:id" element={<AulaDetail />} />
+    <Route path="/agenda" element={<CalendarPage />} />
 
   </Routes>
   </>

@@ -12,6 +12,22 @@ export default function Home() {
 
   const proximaAula = aulas?.slice().sort((a, b) => new Date(a.data_aula) - new Date(b.data_aula))[0];
 
+  const formatTipoAula = (tipo) => {
+    const map = {
+      OBSTETRIC_INTERVENTIONS: "Intercorrências Obstétricas",
+      BIRTH_PHYSIOLOGY: "Pré-natal",
+      NEWBORN_RECEPTION: "Recepção do Recém-nascido",
+      PREGNANCY_OVERVIEW: "Visão Geral da Gestação",
+      CESAREAN_OVERVIEW: "Visão Geral da Cesárea",
+      BREASTFEEDING_AND_PUERPERIUM: "Amamentação e Puerpério",
+      NEST_PREPARATION: "Preparação do Ninho",
+      PAIN_RELIEF_METHODS: "Amamentação",
+      PAIN_MANAGEMENT: "Plano de Parto",
+      AulaTypeEnum: "Aula Planejada", // Fallback for the mock
+    };
+    return map[tipo] || tipo;
+  };
+
   return (
     <div className="p-6 space-y-6">
       <h1 className="text-2xl font-bold">Bem-vinda, Doula!</h1>
@@ -38,7 +54,7 @@ export default function Home() {
         <ul className="space-y-2">
           {aulas?.slice(0, 3).map((aula) => (
             <li key={aula.id} className="p-3 border rounded">
-              <p><strong>{aula.tipo_aula}</strong> — {new Date(aula.data_aula).toLocaleString()}</p>
+              <p><strong>{formatTipoAula(aula.tipo_aula)}</strong> — {new Date(aula.data_aula).toLocaleString()}</p>
               <Link to={routes.detalheAula(aula.id)} className="text-sm text-purple-600 underline">
                 Ver detalhes
               </Link>

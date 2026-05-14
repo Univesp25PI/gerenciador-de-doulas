@@ -8,4 +8,5 @@ export const routes = {
     aulas: "/aulas",
     novaAula: "/aulas/nova",
     detalheAula: (id) => `/aulas/${id}`,
+    agenda: "/agenda",
   };

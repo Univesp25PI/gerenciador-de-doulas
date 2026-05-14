@@ -6,11 +6,22 @@ import mock4 from '../mocks/responses/post_aula.json';
 
 const useMock = process.env.REACT_APP_USE_MOCK === "true";
 
+const getMockAulas = () => {
+  const stored = localStorage.getItem('mockAulas');
+  if (stored) return JSON.parse(stored);
+  localStorage.setItem('mockAulas', JSON.stringify(mock1.data));
+  return mock1.data;
+};
+
+const setMockAulas = (data) => {
+  localStorage.setItem('mockAulas', JSON.stringify(data));
+};
+
 export const AulaService = {
   getAllByDoula: async () => {
     if (useMock) {
       return new Promise((resolve) =>
-        setTimeout(() => resolve(mock1.data), 300)
+        setTimeout(() => resolve(getMockAulas()), 300)
       );
     }
     const response = await api.get('/aula');
@@ -19,9 +30,13 @@ export const AulaService = {
 
   getAllByGestante: async (gestanteId) => {
     if (useMock) {
-      return new Promise((resolve) =>
-        setTimeout(() => resolve(mock2.data), 300)
-      );
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          const aulas = getMockAulas();
+          const filtered = aulas.filter(a => String(a.id_gestante) === String(gestanteId));
+          resolve(filtered.length > 0 ? filtered : mock2.data);
+        }, 300);
+      });
     }
     const response = await api.get(`/aulas/gestante/${gestanteId}`);
     return response.data.data;
@@ -29,9 +44,13 @@ export const AulaService = {
 
   getById: async (id) => {
     if (useMock) {
-      return new Promise((resolve) =>
-        setTimeout(() => resolve(mock3.data), 300)
-      );
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          const aulas = getMockAulas();
+          const aula = aulas.find(a => String(a.id) === String(id));
+          resolve(aula || mock3.data);
+        }, 300);
+      });
     }
     const response = await api.get(`/aula/${id}`);
     return response.data;
@@ -39,11 +58,28 @@ export const AulaService = {
 
   create: async (data) => {
     if (useMock) {
-      return new Promise((resolve) =>
-        setTimeout(() => resolve(mock4.data), 300)
-      );
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          const aulas = getMockAulas();
+          const newAula = {
+            id: Math.floor(Math.random() * 10000),
+            id_gestante: data.id_gestante,
+            numero_aula: data.numero_aula || aulas.length + 1,
+            tipo_aula: data.tipo_aula,
+            data_aula: data.data_aula,
+            local_aula: data.local_aula,
+            observacoes: data.observacoes,
+            create_date: new Date().toISOString(),
+            update_date: new Date().toISOString()
+          };
+          aulas.push(newAula);
+          setMockAulas(aulas);
+          resolve(newAula);
+        }, 300);
+      });
     }
     const response = await api.post('/aula', data);
     return response.data;
   },
 };
+
